@@ -1,0 +1,85 @@
+/* =============================================
+   Cinematic Background
+   ============================================= */
+
+/* Container fixed to the back */
+.bg-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: var(--color-bg, #0d0d1a);
+}
+
+/* ── Star Field Canvas ── */
+.bg-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Gradient Orbs ── */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Gold/Amber Orb - top left area */
+.bg-orb--gold {
+  width: 600px;
+  height: 600px;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, #e2c97e 0%, transparent 70%);
+  opacity: 0.07;
+  animation: float-gold 60s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+/* Teal/Blue Orb - bottom right area */
+.bg-orb--teal {
+  width: 700px;
+  height: 700px;
+  bottom: -20%;
+  right: -10%;
+  background: radial-gradient(circle, #2dd4bf 0%, transparent 70%);
+  opacity: 0.06;
+  animation: float-teal 50s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+@keyframes float-gold {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(15%, 10%) scale(1.1); }
+  66% { transform: translate(5%, 20%) scale(0.95); }
+  100% { transform: translate(-10%, 5%) scale(1.05); }
+}
+
+@keyframes float-teal {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-10%, -15%) scale(1.05); }
+  66% { transform: translate(-20%, 5%) scale(0.95); }
+  100% { transform: translate(5%, -10%) scale(1.1); }
+}
+
+/* ── Noise Grain Overlay ── */
+.bg-noise {
+  position: fixed;
+  inset: 0;
+  z-index: 999998; /* Just below the custom cursor */
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  /* Optional: Mix-blend-mode can make grain pop slightly nicer in dark mode */
+  mix-blend-mode: overlay;
+}
+
+body.light .bg-noise {
+  opacity: 0.04;
+  mix-blend-mode: normal;
+}

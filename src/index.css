@@ -1,0 +1,191 @@
+/* ===================================================
+   GLOBAL CSS — Abhiraj Portfolio
+   Design tokens, resets, typography, utilities
+   =================================================== */
+
+/* ---------- Design Tokens ---------- */
+:root {
+  /* Colors */
+  --color-bg:           #0d0d1a;
+  --color-bg-surface:   #12121f;
+  --color-bg-elevated:  #1a1a2e;
+  --color-accent:       #e2c97e;
+  --color-accent-dim:   rgba(226, 201, 126, 0.12);
+  --color-accent-glow:  rgba(226, 201, 126, 0.25);
+  --color-text-primary: #f0ede6;
+  --color-text-muted:   #8a8799;
+  --color-text-faint:   #3e3c4d;
+  --color-border:       rgba(226, 201, 126, 0.1);
+  --color-border-hover: rgba(226, 201, 126, 0.3);
+  --color-nav-bg:       rgba(13, 13, 26, 0.85);
+
+  /* Typography */
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  /* Spacing */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* Layout */
+  --max-width: 1100px;
+  --nav-height: 70px;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 180ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+
+  /* Borders */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+}
+
+body.light {
+  --color-bg:           #f8f6f0;
+  --color-bg-surface:   #ffffff;
+  --color-bg-elevated:  #ffffff;
+  --color-text-primary: #1a1a2e;
+  --color-text-muted:   #64748b;
+  --color-text-faint:   #cbd5e1;
+  --color-border:       rgba(0, 0, 0, 0.1);
+  --color-border-hover: rgba(0, 0, 0, 0.2);
+  --color-nav-bg:       rgba(248, 246, 240, 0.85);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+
+/* Theme transition class */
+.theme-transitioning,
+.theme-transitioning * {
+  transition: background-color 0.4s var(--ease-out),
+              color 0.4s var(--ease-out),
+              border-color 0.4s var(--ease-out),
+              box-shadow 0.4s var(--ease-out) !important;
+}
+
+img, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ---------- Typography Helpers ---------- */
+.font-display { font-family: var(--font-display); }
+.text-accent   { color: var(--color-accent); }
+.text-muted    { color: var(--color-text-muted); }
+
+/* ---------- Layout Helpers ---------- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.section {
+  padding-block: 120px;
+}
+@media (max-width: 768px) {
+  .section {
+    padding-block: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-inline: var(--space-5);
+  }
+  .section {
+    padding-block: var(--space-20);
+  }
+}
+
+/* ---------- Selection ---------- */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-faint);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-glow);
+}
+
+/* ---------- Focus visible ---------- */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ---------- Global Scroll Reveal ---------- */
+/* Removed in favor of GSAP ScrollTrigger */
