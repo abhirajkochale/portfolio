@@ -5,9 +5,9 @@ import './Hero.css'
 
 /* ── Typewriter config ─────────────────────────── */
 const ROLES = ['Full-Stack Developer', 'AI API Integrator', 'CS Student @ KJ Somaiya']
-const TYPE_SPEED   = 60   // ms per character
+const TYPE_SPEED = 60   // ms per character
 const DELETE_SPEED = 35   // ms per character
-const PAUSE_AFTER  = 2000 // ms to hold full word
+const PAUSE_AFTER = 2000 // ms to hold full word
 
 /* ── Particle canvas ───────────────────────────── */
 interface Particle {
@@ -25,7 +25,7 @@ function useParticleCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>)
     let particles: Particle[] = []
 
     const resize = () => {
-      canvas.width  = canvas.offsetWidth
+      canvas.width = canvas.offsetWidth
       canvas.height = canvas.offsetHeight
     }
 
@@ -101,10 +101,10 @@ function useParticleCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>)
 
 /* ── Typewriter hook ───────────────────────────── */
 function useTypewriter(words: string[], startDelay: number = 0) {
-  const [display, setDisplay]   = useState('')
-  const [wordIdx, setWordIdx]   = useState(0)
+  const [display, setDisplay] = useState('')
+  const [wordIdx, setWordIdx] = useState(0)
   const [deleting, setDeleting] = useState(false)
-  const [started, setStarted]   = useState(startDelay === 0)
+  const [started, setStarted] = useState(startDelay === 0)
 
   useEffect(() => {
     if (!started) {
@@ -138,7 +138,7 @@ function useTypewriter(words: string[], startDelay: number = 0) {
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
-  
+
   useParticleCanvas(canvasRef)
   const typedRole = useTypewriter(ROLES, 800) // start after 0.8s
 
@@ -243,7 +243,7 @@ export default function Hero() {
             <ArrowIcon />
           </a>
           <a
-            href="/resume.pdf"
+            href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
             className="hero__btn hero__btn--outline"
             target="_blank"
             rel="noopener noreferrer"
