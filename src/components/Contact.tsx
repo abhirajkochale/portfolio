@@ -29,6 +29,18 @@ export default function Contact() {
           }
         )
       }
+
+      gsap.from('.contact__email, .contact__chips, .contact__form', {
+        opacity: 0,
+        y: 60,
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: '.contact__email',
+          start: 'top 95%',
+          end: 'top 50%',
+          scrub: 1,
+        }
+      })
     }, sectionRef)
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill())

@@ -37,13 +37,26 @@ export default function Projects() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.proj-featured', {
-        opacity: 0, y: 64, duration: 1.1, ease: 'power3.out',
-        scrollTrigger: { trigger: '.proj-featured', start: 'top 76%', once: true }
+        opacity: 0, 
+        y: 100, 
+        scrollTrigger: { 
+          trigger: '.proj-featured', 
+          start: 'top 85%', 
+          end: 'top 40%',
+          scrub: 1 
+        }
       })
 
       gsap.from('.proj-mini', {
-        opacity: 0, y: 36, stagger: 0.12, duration: 0.85, ease: 'power2.out',
-        scrollTrigger: { trigger: '.proj-grid', start: 'top 80%', once: true }
+        opacity: 0, 
+        y: 80, 
+        stagger: 0.1, 
+        scrollTrigger: { 
+          trigger: '.proj-grid', 
+          start: 'top 85%', 
+          end: 'top 40%',
+          scrub: 1 
+        }
       })
     }, sectionRef)
     return () => {

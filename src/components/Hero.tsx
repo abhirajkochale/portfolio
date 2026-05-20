@@ -67,6 +67,8 @@ export default function Hero() {
   return (
     <section className="hero" ref={heroRef} id="hero">
       <div className="hero__pin">
+        <div className="hero__edge hero__edge--left">FULL-STACK DEVELOPER · KJ SOMAIYA</div>
+        <div className="hero__edge hero__edge--right">PORTFOLIO · 2026</div>
 
         <div className="hero__meta hero__meta--top">
           <div className="hero__scroll-hint">

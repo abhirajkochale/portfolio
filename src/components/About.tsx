@@ -21,52 +21,62 @@ export default function About() {
         gsap.from(split.lines, {
           yPercent: 100,
           opacity: 0,
-          duration: 1.0,
-          ease: 'power3.out',
           stagger: 0.1,
           scrollTrigger: {
             trigger: headingRef.current,
-            start: 'top 78%',
-            once: true,
+            start: 'top 85%',
+            end: 'top 40%',
+            scrub: 1,
           }
         })
       }
 
       gsap.from('.about__stat', {
         opacity: 0,
-        y: 20,
-        duration: 0.6,
-        stagger: 0.05,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: '.about__stats', start: 'top 80%', once: true }
+        y: 40,
+        stagger: 0.1,
+        scrollTrigger: { 
+          trigger: '.about__stats', 
+          start: 'top 90%', 
+          end: 'top 50%',
+          scrub: 1
+        }
       })
 
       gsap.from('.about__photo-wrapper', {
         opacity: 0,
-        y: 40,
-        duration: 0.9,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: '.about__right', start: 'top 80%', once: true }
+        y: 80,
+        scrollTrigger: { 
+          trigger: '.about__right', 
+          start: 'top 85%', 
+          end: 'top 40%',
+          scrub: 1
+        }
       })
 
       gsap.from('.about__bio', {
         opacity: 0,
-        y: 20,
-        duration: 0.7,
-        delay: 0.2,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: '.about__right', start: 'top 75%', once: true }
+        y: 40,
+        scrollTrigger: { 
+          trigger: '.about__right', 
+          start: 'top 75%', 
+          end: 'top 35%',
+          scrub: 1 
+        }
       })
 
       if (skillsRef.current) {
         gsap.from(skillsRef.current.querySelectorAll('.tag'), {
           opacity: 0,
-          y: 12,
+          y: 20,
           scale: 0.94,
-          stagger: 0.04,
-          duration: 0.5,
-          ease: 'power2.out',
-          scrollTrigger: { trigger: skillsRef.current, start: 'top 85%', once: true }
+          stagger: 0.05,
+          scrollTrigger: { 
+            trigger: skillsRef.current, 
+            start: 'top 90%', 
+            end: 'top 60%',
+            scrub: 1
+          }
         })
       }
     }, sectionRef)

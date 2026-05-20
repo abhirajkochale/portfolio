@@ -44,6 +44,14 @@ button { cursor: pointer; background: none; border: none; }
   outline-offset: 4px;
 }
 
+/* ── Page Section wrapper for stacking effect ── */
+.page-section {
+  width: 100%;
+  background: var(--bg);
+  position: relative;
+  /* GSAP will control z-index and position fixed (via pin) */
+}
+
 /* ── Section wrapper ── */
 .section {
   padding: clamp(80px, 11vw, 140px) clamp(24px, 6.5vw, 100px);

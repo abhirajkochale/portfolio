@@ -15,6 +15,30 @@
   background: var(--bg);
 }
 
+.hero__edge {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  transform-origin: center center;
+  z-index: 1;
+}
+
+.hero__edge--left {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateX(-50%) rotate(-90deg);
+}
+
+.hero__edge--right {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateX(50%) rotate(90deg);
+}
+
 .hero__meta {
   display: flex; 
   justify-content: space-between;
@@ -55,16 +79,17 @@
 
 .hero__name-clip {
   overflow: hidden;
-  line-height: 0.88;
+  line-height: 1.1;
+  padding: 16px 64px;
 }
 
 .hero__word {
   display: block;
   font-family: var(--serif); 
   font-weight: 700;
-  font-size: clamp(72px, 13.5vw, 180px);
-  letter-spacing: -0.035em; 
-  line-height: 0.86;
+  font-size: clamp(64px, 11vw, 160px);
+  letter-spacing: 0.02em; 
+  line-height: 1;
   color: var(--text);
   will-change: transform;
   white-space: nowrap;
@@ -79,5 +104,8 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+  .hero__edge {
+    display: none;
   }
 }

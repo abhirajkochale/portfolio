@@ -40,11 +40,14 @@ export default function Experience() {
     const ctx = gsap.context(() => {
       gsap.from('.exp-row', {
         opacity: 0,
-        x: -28,
-        duration: 0.75,
-        ease: 'power2.out',
+        y: 60,
         stagger: 0.1,
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 78%', once: true },
+        scrollTrigger: { 
+          trigger: sectionRef.current, 
+          start: 'top 85%', 
+          end: 'top 35%',
+          scrub: 1 
+        },
       })
     }, sectionRef)
     return () => {

@@ -24,8 +24,15 @@ export default function Certifications() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.cert-card', {
-        opacity: 0, y: 36, stagger: 0.12, duration: 0.85, ease: 'power2.out',
-        scrollTrigger: { trigger: '.certs__grid', start: 'top 80%', once: true }
+        opacity: 0, 
+        y: 80, 
+        stagger: 0.1, 
+        scrollTrigger: { 
+          trigger: '.certs__grid', 
+          start: 'top 85%', 
+          end: 'top 40%',
+          scrub: 1 
+        }
       })
     }, sectionRef)
     return () => {
