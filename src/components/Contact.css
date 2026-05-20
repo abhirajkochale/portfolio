@@ -1,89 +1,62 @@
-/* ── Contact ─────────────────────────────────────── */
 .contact {
+  padding: clamp(100px, 15vw, 180px) clamp(24px, 6.5vw, 100px);
   border-top: 1px solid var(--border);
-  background: var(--bg);
 }
 
-.contact__container {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: clamp(100px, 14vw, 180px) var(--pad-x);
-  text-align: center;
+.contact__eyebrow {
+  justify-content: center;
 }
 
-/* CTA heading */
 .contact__cta {
   font-family: var(--serif);
   font-weight: 700;
   font-style: italic;
-  font-size: clamp(48px, 9vw, 120px);
-  color: var(--text);
+  font-size: clamp(52px, 9.5vw, 124px);
   letter-spacing: -0.03em;
   line-height: 1;
-  margin-bottom: 32px;
-  margin-top: 16px;
-  will-change: color;
+  text-align: center;
+  color: var(--text);
 }
-
-/* SplitType word spans get display: inline-block */
 .contact__cta .word {
-  display: inline-block;
+  color: var(--text-3); /* overridden by GSAP */
 }
 
-/* Email */
 .contact__email {
   display: block;
-  width: fit-content;
-  margin: 0 auto 32px;
+  text-align: center;
+  margin-top: 36px;
   font-family: var(--sans);
-  font-size: clamp(16px, 2.5vw, 28px);
   font-weight: 300;
+  font-size: clamp(17px, 2.2vw, 26px);
   color: var(--text-2);
-  transition: color 0.2s ease;
+  transition: color 0.2s;
 }
-
 .contact__email:hover { color: var(--text); }
 
-/* Chips */
 .contact__chips {
   display: flex;
   justify-content: center;
-  gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 64px;
+  gap: 8px;
+  margin-top: 28px;
 }
 
-/* Form */
 .contact__form {
-  max-width: 560px;
-  margin: 0 auto;
-  text-align: left;
+  margin-top: 64px;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.contact__row {
+.contact__form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
-.contact__field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.contact__label {
-  font-family: var(--sans);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-3);
+  gap: 0;
 }
 
 .contact__input {
   width: 100%;
-  background: var(--bg-2);
+  background: transparent;
   border: none;
   border-bottom: 1px solid var(--border);
   padding: 16px 0;
@@ -92,75 +65,41 @@
   font-weight: 300;
   color: var(--text);
   outline: none;
-  transition: border-bottom-color 0.25s ease;
+  transition: border-bottom-color 0.25s;
+  border-radius: 0;
 }
+.contact__input::placeholder { color: var(--text-3); }
+.contact__input:focus { border-bottom-color: var(--text); }
 
-.contact__input::placeholder {
-  color: var(--text-3);
-}
-
-.contact__input:focus {
-  border-bottom-color: var(--gold);
-}
-
-.contact__input:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.contact__textarea {
+.contact__input--area {
+  min-height: 100px;
   resize: vertical;
-  min-height: 120px;
-  background: var(--bg-2);
-  border: none;
-  border-bottom: 1px solid var(--border);
-  padding-top: 16px;
-}
-
-.contact__form-footer {
-  margin-top: 32px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
+  margin-top: 0;
 }
 
 .contact__submit {
+  display: block;
+  margin-top: 36px;
+  background: var(--text);
+  color: var(--bg);
+  border: 1px solid var(--text);
+  padding: 16px 44px;
   font-family: var(--sans);
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  background: var(--gold);
-  color: #000000;
-  border: none;
-  border-radius: 0;
-  padding: 16px 40px;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition: background 0.25s, color 0.25s;
 }
-
 .contact__submit:hover:not(:disabled) {
-  background: var(--gold-dim);
-  color: #fff;
+  background: var(--bg);
+  color: var(--text);
 }
-
-.contact__submit:active:not(:disabled) {
-  transform: scale(0.98);
-}
-
-.contact__submit:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-.contact__success {
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 300;
-  color: #3DBA6F;
-}
+.contact__submit:disabled { opacity: 0.7; cursor: not-allowed; }
 
 @media (max-width: 768px) {
-  .contact__row    { grid-template-columns: 1fr; }
-  .contact__chips  { flex-direction: column; align-items: center; }
+  .section.contact { padding: clamp(60px, 10vw, 80px) 24px; }
+  .contact__form-row { grid-template-columns: 1fr; gap: 0; }
+  .contact__submit { width: 100%; }
 }

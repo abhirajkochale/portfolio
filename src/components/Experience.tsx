@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-
+import ScrollTrigger from 'gsap/ScrollTrigger'
 import './Experience.css'
 
 const EXP = [
@@ -9,6 +9,7 @@ const EXP = [
     role:    'Machine Learning Intern',
     company: 'Wayspire Ed-Tech Pvt Ltd',
     location:'Remote',
+    type:    'Internship',
     description: 'Built ML models for text classification and introductory CV tasks using OpenCV and Scikit-learn. Trained, evaluated, and deployed classification pipelines.',
     tags: ['Python', 'ML', 'OpenCV', 'Scikit-learn'],
   },
@@ -17,6 +18,7 @@ const EXP = [
     role:    'Social Media Manager',
     company: 'Awesome Kids International Preschool',
     location:'Mumbai',
+    type:    'Part-time',
     description: 'Grew Instagram engagement by 30%+ through consistent content strategy and creative campaigns. Managed brand voice and posting cadence.',
     tags: ['Content Strategy', 'Instagram', 'Analytics'],
   },
@@ -25,6 +27,7 @@ const EXP = [
     role:    'Marketing Team Member',
     company: 'SMLRA',
     location:'Mumbai',
+    type:    'Volunteer',
     description: 'Supported sponsorship outreach and event marketing for ML workshops and community initiatives across Mumbai.',
     tags: ['Marketing', 'Outreach', 'ML Events'],
   },
@@ -35,57 +38,56 @@ export default function Experience() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      document.querySelectorAll<HTMLElement>('.exp-row').forEach((row) => {
-        gsap.from(row, {
-          opacity: 0,
-          x: -32,
-          duration: 0.7,
-          ease: 'power2.out',
-          scrollTrigger: { trigger: row, start: 'top 82%', once: true },
-        })
+      gsap.from('.exp-row', {
+        opacity: 0,
+        x: -28,
+        duration: 0.75,
+        ease: 'power2.out',
+        stagger: 0.1,
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 78%', once: true },
       })
     }, sectionRef)
-    return () => ctx.revert()
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill())
+      ctx.revert()
+    }
   }, [])
 
   return (
-    <section id="experience" className="experience" ref={sectionRef}>
-      <div className="exp__container">
+    <section id="experience" className="section experience" ref={sectionRef}>
+      
+      <div className="eyebrow">
+        <span className="eyebrow__num">02</span>
+        <span className="eyebrow__sep">/</span>
+        <span className="eyebrow__label">Experience</span>
+      </div>
 
-        <div className="s-eyebrow">
-          <span className="s-num">02</span>
-          <span className="s-label">/ Experience</span>
-        </div>
+      <h2 className="about__heading" style={{ marginBottom: '64px' }}>
+        The journey so far.
+      </h2>
 
-        <h2 className="s-heading" style={{ marginBottom: '56px' }}>
-          The journey so far.
-        </h2>
+      <div className="exp__list">
+        {EXP.map((e, i) => (
+          <div className="exp-row" key={i}>
+            <div className="exp-row__date">{e.date}</div>
 
-        <div className="exp__list">
-          {EXP.map((e, i) => (
-            <div className="exp-row" key={i}>
-              <span className="exp-row__date">{e.date}</span>
-
-              <div className="exp-row__body">
-                <p className="exp-row__role">{e.role}</p>
-                <p className="exp-row__company">{e.company}</p>
-                <p className="exp-row__desc">{e.description}</p>
-                <div className="exp-row__tags">
-                  {e.tags.map(t => (
-                    <span key={t} className="tag exp-row__tag">{t}</span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="exp-row__right">
-                <p className="exp-row__company-col">{e.company}</p>
-                <p className="exp-row__location">{e.location}</p>
+            <div className="exp-row__main">
+              <div className="exp-row__role">{e.role}</div>
+              <div className="exp-row__company">{e.company}</div>
+              <div className="exp-row__desc">{e.description}</div>
+              <div className="exp-row__tags">
+                {e.tags.map(t => <span key={t} className="tag">{t}</span>)}
               </div>
             </div>
-          ))}
-        </div>
 
+            <div className="exp-row__meta">
+              <div className="exp-row__loc">{e.location}</div>
+              <div className="exp-row__type">{e.type}</div>
+            </div>
+          </div>
+        ))}
       </div>
+
     </section>
   )
 }

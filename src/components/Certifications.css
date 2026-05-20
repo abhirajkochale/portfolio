@@ -1,15 +1,3 @@
-/* ── Certifications ──────────────────────────────── */
-.certifications {
-  border-top: 1px solid var(--border);
-  background: var(--bg);
-}
-
-.certs__container {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: var(--pad-y) var(--pad-x);
-}
-
 .certs__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -20,31 +8,18 @@
 
 .cert-card {
   background: var(--bg);
-  padding: 40px 36px;
+  padding: 44px 40px;
   display: flex;
   flex-direction: column;
-  transition: background 0.25s ease;
+  transition: background 0.2s ease;
 }
-
-.cert-card:hover { background: var(--bg-2); }
-
-.cert-card__top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.cert-card__issuer-icon {
-  color: var(--gold-dim);
-  display: flex;
-  align-items: center;
+.cert-card:hover {
+  background: var(--bg-2);
 }
 
 .cert-card__issuer {
   font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 400;
+  font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-3);
@@ -53,37 +28,36 @@
 .cert-card__title {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(18px, 2vw, 24px);
+  font-size: 24px;
   color: var(--text);
+  margin-top: 14px;
   line-height: 1.2;
-  margin-bottom: 10px;
-  flex: 1;
 }
 
 .cert-card__date {
   font-family: var(--sans);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-3);
-  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .cert-card__footer {
+  margin-top: auto;
+  padding-top: 20px;
   border-top: 1px solid var(--border);
-  padding-top: 16px;
 }
 
 .cert-card__link {
   font-family: var(--sans);
   font-size: 11px;
-  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-2);
-  transition: color 0.2s ease;
+  transition: color 0.2s;
 }
-
 .cert-card__link:hover { color: var(--text); }
 
 @media (max-width: 768px) {
+  .section.certifications { padding: clamp(60px, 10vw, 80px) 24px; }
   .certs__grid { grid-template-columns: 1fr; }
 }
