@@ -65,7 +65,7 @@ export default function Navbar() {
           href="#"
           onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
         >
-          AK
+          Abhiraj Kochale
         </a>
 
         <div className="nav__right">

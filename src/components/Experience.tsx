@@ -5,29 +5,29 @@ import './Experience.css'
 
 const EXP = [
   {
-    date:    'Jun 2025 — Aug 2025',
-    role:    'Machine Learning Intern',
+    date: 'Jun 2025 — Aug 2025',
+    role: 'Machine Learning Intern',
     company: 'Wayspire Ed-Tech Pvt Ltd',
-    location:'Remote',
-    type:    'Internship',
+    location: 'Remote',
+    type: 'Internship',
     description: 'Built ML models for text classification and introductory CV tasks using OpenCV and Scikit-learn. Trained, evaluated, and deployed classification pipelines.',
     tags: ['Python', 'ML', 'OpenCV', 'Scikit-learn'],
   },
   {
-    date:    '2024 — Present',
-    role:    'Social Media Manager',
+    date: '2024 — Present',
+    role: 'Social Media Manager',
     company: 'Awesome Kids International Preschool',
-    location:'Mumbai',
-    type:    'Part-time',
+    location: 'Mumbai',
+    type: 'Part-time',
     description: 'Grew Instagram engagement by 30%+ through consistent content strategy and creative campaigns. Managed brand voice and posting cadence.',
     tags: ['Content Strategy', 'Instagram', 'Analytics'],
   },
   {
-    date:    'Oct 2024 — Present',
-    role:    'Marketing Team Member',
+    date: 'Oct 2025 — Present',
+    role: 'Marketing Team Member',
     company: 'SMLRA',
-    location:'Mumbai',
-    type:    'Volunteer',
+    location: 'Mumbai',
+    type: 'Volunteer',
     description: 'Supported sponsorship outreach and event marketing for ML workshops and community initiatives across Mumbai.',
     tags: ['Marketing', 'Outreach', 'ML Events'],
   },
@@ -42,11 +42,11 @@ export default function Experience() {
         opacity: 0,
         y: 60,
         stagger: 0.1,
-        scrollTrigger: { 
-          trigger: sectionRef.current, 
-          start: 'top 85%', 
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 85%',
           end: 'top 35%',
-          scrub: 1 
+          scrub: 1
         },
       })
     }, sectionRef)
@@ -58,7 +58,7 @@ export default function Experience() {
 
   return (
     <section id="experience" className="section experience" ref={sectionRef}>
-      
+
       <div className="eyebrow">
         <span className="eyebrow__num">02</span>
         <span className="eyebrow__sep">/</span>

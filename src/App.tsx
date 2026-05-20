@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -23,14 +22,18 @@ export default function App() {
       const sections = gsap.utils.toArray('.page-section')
       
       sections.forEach((sec: any, i) => {
-        // Set dynamic z-index to guarantee stacking order
-        gsap.set(sec, { zIndex: i + 10 })
+        // Alternate slide in from left/right
+        const xOffset = i % 2 === 0 ? -120 : 120
 
-        ScrollTrigger.create({
-          trigger: sec,
-          start: () => (sec.offsetHeight <= window.innerHeight ? 'top top' : 'bottom bottom'),
-          pin: true,
-          pinSpacing: false,
+        gsap.from(sec, {
+          opacity: 0,
+          x: xOffset,
+          scrollTrigger: {
+            trigger: sec,
+            start: 'top 95%',
+            end: 'top 50%',
+            scrub: 1,
+          }
         })
       })
     }, mainRef)
