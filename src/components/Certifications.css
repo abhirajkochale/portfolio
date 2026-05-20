@@ -1,225 +1,89 @@
-/* =============================================
-   Certifications Section — Redesigned
-   ============================================= */
-
+/* ── Certifications ──────────────────────────────── */
 .certifications {
-  position: relative;
-  background: linear-gradient(180deg, transparent, var(--color-bg-surface) 30%, transparent);
+  border-top: 1px solid var(--border);
+  background: var(--bg);
 }
 
-/* ── Header — identical pattern to other sections ── */
-.certs__header {
-  margin-bottom: var(--space-12);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-.certs__label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-4);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: var(--space-4);
-}
-.certs__label-line {
-  width: 36px;
-  height: 1px;
-  background: var(--color-accent);
-  opacity: 0.5;
-  display: block;
-}
-.certs__heading {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 5vw, 48px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--color-text-primary);
-  line-height: 1.1;
-}
-.certs__subtitle {
-  margin-top: var(--space-2);
-  font-size: 1rem;
-  color: var(--color-text-muted);
+.certs__container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: var(--pad-y) var(--pad-x);
 }
 
-/* ── 2-column grid ───────────────────────────── */
 .certs__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-6);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
 }
 
-/* ── Card ────────────────────────────────────── */
 .cert-card {
-  position: relative;
-  background: var(--color-bg-elevated);
-  /* Unified gold left border — same as project cards */
-  border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-accent);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition:
-    transform 0.2s var(--ease-out),
-    border-color 0.2s,
-    box-shadow 0.2s;
-  animation: card-in 0.5s var(--ease-out) both;
-}
-@keyframes card-in {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.cert-card:nth-child(2) { animation-delay: 80ms; }
-
-/* Hover — same lift as project cards */
-.cert-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(226,201,126,0.4);
-  border-left-color: var(--color-accent);
-  box-shadow:
-    0 16px 48px rgba(0,0,0,0.4),
-    -4px 0 20px rgba(226,201,126,0.2),
-    inset 0 1px 0 rgba(226,201,126,0.07);
-}
-
-/* Thin top gradient line */
-.cert-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg,
-    rgba(226,201,126,0.55),
-    rgba(226,201,126,0.08),
-    transparent);
-}
-
-/* ── Inner layout ────────────────────────────── */
-.cert-card__inner {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-6);
-  padding: 28px 28px 28px 26px; /* 26px left → accounts for 3px border */
-}
-
-/* ── Icon column ─────────────────────────────── */
-.cert-card__icon-col {
-  flex-shrink: 0;
-}
-
-.cert-card__icon-wrap {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-md);
-  background: rgba(226,201,126,0.08);
-  border: 1px solid rgba(226,201,126,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-accent);
-  transition: background-color 0.2s, transform 0.2s var(--ease-out);
-}
-.cert-card:hover .cert-card__icon-wrap {
-  background: rgba(226,201,126,0.14);
-  transform: scale(1.06);
-}
-
-.cert-card__award-icon {
-  width: 26px;
-  height: 26px;
-}
-
-/* ── Content column ──────────────────────────── */
-.cert-card__content {
+  background: var(--bg);
+  padding: 40px 36px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  min-width: 0;
+  transition: background 0.25s ease;
 }
 
-/* Title — bold, 24px, white */
-.cert-card__title {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--color-text-primary);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
+.cert-card:hover { background: var(--bg-2); }
 
-/* Issuer — gold, 14px */
-.cert-card__issuer {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-accent);
-  letter-spacing: 0.03em;
-}
-
-/* Meta row: date + verified badge */
-.cert-card__meta {
+.cert-card__top {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  margin-top: var(--space-1);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.cert-card__issuer-icon {
+  color: var(--gold-dim);
+  display: flex;
+  align-items: center;
+}
+
+.cert-card__issuer {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.cert-card__title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 24px);
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 10px;
+  flex: 1;
 }
 
 .cert-card__date {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: 0.75rem;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--text-3);
+  margin-bottom: 20px;
+}
+
+.cert-card__footer {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.cert-card__link {
+  font-family: var(--sans);
+  font-size: 11px;
   font-weight: 500;
-  color: var(--color-text-faint);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  transition: color 0.2s ease;
 }
 
+.cert-card__link:hover { color: var(--text); }
 
-/* View Certificate link */
-.cert-card__view-link {
-  margin-top: var(--space-2);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
-  background: transparent;
-  border-radius: var(--radius-pill);
-  padding: var(--space-2) var(--space-4);
-  width: fit-content;
-  transition:
-    color 0.2s,
-    border-color 0.2s,
-    background-color 0.2s,
-    transform 0.2s var(--ease-out);
-}
-.cert-card__view-link:hover {
-  color: var(--color-accent);
-  border-color: rgba(226,201,126,0.35);
-  background: rgba(226,201,126,0.06);
-  transform: translateY(-1px);
-}
-
-/* ── Responsive ──────────────────────────────── */
 @media (max-width: 768px) {
-  .certs__grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .cert-card__inner {
-    flex-direction: column;
-    gap: var(--space-4);
-    padding: 22px 20px 24px 18px;
-  }
+  .certs__grid { grid-template-columns: 1fr; }
 }

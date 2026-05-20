@@ -1,155 +1,135 @@
 import { useEffect, useRef, useState } from 'react'
-import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
 import './Navbar.css'
-import ThemeToggle from './ThemeToggle'
 
 const NAV_LINKS = [
   { label: 'About',      href: '#about' },
   { label: 'Experience', href: '#experience' },
-  { label: 'Projects',   href: '#projects' },
+  { label: 'Work',       href: '#projects' },
   { label: 'Contact',    href: '#contact' },
 ]
 
 export default function Navbar() {
-  const [scrolled, setScrolled]   = useState(false)
-  const [hidden, setHidden]       = useState(false)
-  const [menuOpen, setMenuOpen]   = useState(false)
-  const [activeSection, setActiveSection] = useState('')
-  const menuRef  = useRef<HTMLDivElement>(null)
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [active,   setActive]   = useState('')
+  const overlayRef = useRef<HTMLDivElement>(null)
 
-  /* Smart navbar: GSAP ScrollTrigger */
-  useGSAP(() => {
-    ScrollTrigger.create({
-      start: 'top -80', // after scrolling past 80px
-      onUpdate: (self) => {
-        // Toggle backdrop blur based on scroll position
-        setScrolled(self.scroll() > 40)
-        
-        // Hide/show logic
-        if (self.direction === 1 && self.scroll() > 120) {
-          // Scrolling down
-          setHidden(true)
-        } else {
-          // Scrolling up
-          setHidden(false)
-        }
-      }
+  // Scroll detection
+  useEffect(() => {
+    const st = ScrollTrigger.create({
+      start: 'top -80',
+      onUpdate: (self) => setScrolled(self.scroll() > 80),
     })
+    return () => st.kill()
   }, [])
 
-  /* Highlight active section via IntersectionObserver */
+  // Active section detection
   useEffect(() => {
     const sections = NAV_LINKS.map(l => document.querySelector(l.href))
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) setActiveSection('#' + entry.target.id)
-        })
-      },
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) setActive('#' + e.target.id) }),
       { rootMargin: '-50% 0px -50% 0px' }
     )
-    sections.forEach(s => s && observer.observe(s))
-    return () => observer.disconnect()
+    sections.forEach(s => s && obs.observe(s))
+    return () => obs.disconnect()
   }, [])
 
-  /* Close menu on outside click */
+  // Overlay animation
   useEffect(() => {
-    if (!menuOpen) return
-    const handler = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false)
-      }
+    if (!overlayRef.current) return
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden'
+      gsap.fromTo(overlayRef.current,
+        { clipPath: 'inset(0 0 100% 0)' },
+        { clipPath: 'inset(0 0 0% 0)', duration: 0.6, ease: 'cubic-bezier(0.76,0,0.24,1)' }
+      )
+    } else {
+      document.body.style.overflow = ''
+      gsap.to(overlayRef.current, {
+        clipPath: 'inset(0 0 100% 0)', duration: 0.5, ease: 'cubic-bezier(0.76,0,0.24,1)',
+      })
     }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
   }, [menuOpen])
 
-  const handleNavClick = (href: string) => {
+  const go = (href: string) => {
     setMenuOpen(false)
-    const el = document.querySelector(href)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    setTimeout(() => {
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+    }, 400)
   }
 
   return (
-    <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''} ${hidden ? 'navbar--hidden' : ''}`}>
-      <nav className="navbar__inner container" ref={menuRef}>
-        {/* Logo */}
+    <>
+      <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
         <a
-          className="navbar__logo"
-          href="#hero"
+          className="nav__logo"
+          href="#"
           onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-          aria-label="Abhiraj Kochale — Back to top"
         >
           AK
         </a>
 
-        {/* Desktop links */}
-        <ul className="navbar__links" role="list">
+        <nav className="nav__links" aria-label="Main navigation">
           {NAV_LINKS.map(({ label, href }) => (
-            <li key={href}>
-              <a
-                className={`navbar__link ${activeSection === href ? 'navbar__link--active' : ''}`}
-                href={href}
-                onClick={e => { e.preventDefault(); handleNavClick(href) }}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <ThemeToggle />
-
-        {/* CTA */}
-        <a
-          className="navbar__cta"
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Resume ↗
-        </a>
-
-        {/* Hamburger (mobile) */}
-        <button
-          className={`navbar__hamburger ${menuOpen ? 'is-open' : ''}`}
-          onClick={() => setMenuOpen(o => !o)}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-        >
-          <span /><span /><span />
-        </button>
-      </nav>
-
-      {/* Mobile drawer */}
-      <div className={`navbar__drawer ${menuOpen ? 'navbar__drawer--open' : ''}`} aria-hidden={!menuOpen}>
-        <ul role="list">
-          {NAV_LINKS.map(({ label, href }) => (
-            <li key={href}>
-              <a
-                className={`navbar__drawer-link ${activeSection === href ? 'navbar__drawer-link--active' : ''}`}
-                href={href}
-                onClick={e => { e.preventDefault(); handleNavClick(href) }}
-                tabIndex={menuOpen ? 0 : -1}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-          <li>
             <a
-              className="navbar__drawer-cta"
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+              key={href}
+              href={href}
+              className={`nav__link ${active === href ? 'nav__link--active' : ''}`}
+              onClick={e => { e.preventDefault(); go(href) }}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="nav__right">
+          <a
+            className="nav__cta"
+            href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            RESUME ↗
+          </a>
+
+          <button
+            className={`nav__burger ${menuOpen ? 'is-open' : ''}`}
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+          >
+            <span /><span />
+          </button>
+        </div>
+      </header>
+
+      {/* Full-screen overlay */}
+      <div className="nav__overlay" ref={overlayRef} aria-hidden={!menuOpen}>
+        <nav className="nav__overlay-links">
+          {NAV_LINKS.map(({ label, href }) => (
+            <a
+              key={href}
+              href={href}
+              className="nav__overlay-link"
+              onClick={e => { e.preventDefault(); go(href) }}
               tabIndex={menuOpen ? 0 : -1}
             >
-              Resume ↗
+              {label}
             </a>
-          </li>
-        </ul>
+          ))}
+          <a
+            className="nav__overlay-cta"
+            href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
+            target="_blank" rel="noopener noreferrer"
+            tabIndex={menuOpen ? 0 : -1}
+          >
+            RESUME ↗
+          </a>
+        </nav>
       </div>
-    </header>
+    </>
   )
 }
