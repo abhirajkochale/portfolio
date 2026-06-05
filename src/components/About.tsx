@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
-import SplitType from 'split-type'
+import GithubHeatmap from './GithubHeatmap'
 import './About.css'
 
 const SKILLS = [
@@ -10,92 +10,109 @@ const SKILLS = [
 ]
 
 export default function About() {
-  const sectionRef  = useRef<HTMLElement>(null)
-  const headingRef  = useRef<HTMLHeadingElement>(null)
-  const skillsRef   = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading line-by-line scrub
-      if (headingRef.current) {
-        const split = new SplitType(headingRef.current, { types: 'lines' })
-        gsap.from(split.lines, {
-          yPercent: 110,
-          opacity: 0,
-          stagger: 0.08,
+
+      // ── Heading: clip-path horizontal reveal ──
+      gsap.fromTo('.about__heading',
+        { clipPath: 'inset(0 100% 0 0)' },
+        {
+          clipPath: 'inset(0 0% 0 0)',
+          duration: 0.7,
+          ease: 'power3.out',
           scrollTrigger: {
-            trigger: headingRef.current,
+            trigger: '.about__heading',
+            start: 'top 80%',
+            once: true,
+          }
+        }
+      )
+
+      // ── Photo: scale in from 0.92 ──
+      gsap.fromTo('.about__photo-wrapper',
+        { opacity: 0, scale: 0.92 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.about__right',
+            start: 'top 80%',
+            once: true,
+          }
+        }
+      )
+
+      // ── Bio ──
+      gsap.fromTo('.about__bio',
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          delay: 0.15,
+          scrollTrigger: {
+            trigger: '.about__bio',
             start: 'top 82%',
-            end: 'top 38%',
-            scrub: 1.2,
+            once: true,
           }
-        })
-      }
-
-      // Stats staggered up
-      gsap.from('.about__stat', {
-        opacity: 0,
-        y: 32,
-        stagger: 0.08,
-        scrollTrigger: {
-          trigger: '.about__stats',
-          start: 'top 88%',
-          end: 'top 52%',
-          scrub: 1,
         }
-      })
+      )
 
-      // Resume link
-      gsap.from('.about__resume-link', {
-        opacity: 0,
-        y: 16,
-        scrollTrigger: {
-          trigger: '.about__resume-link',
-          start: 'top 90%',
-          end: 'top 65%',
-          scrub: 1,
-        }
-      })
-
-      // Photo
-      gsap.from('.about__photo-wrapper', {
-        opacity: 0,
-        y: 60,
-        scale: 0.97,
-        scrollTrigger: {
-          trigger: '.about__right',
-          start: 'top 85%',
-          end: 'top 42%',
-          scrub: 1.2,
-        }
-      })
-
-      // Bio
-      gsap.from('.about__bio', {
-        opacity: 0,
-        y: 30,
-        scrollTrigger: {
-          trigger: '.about__bio',
-          start: 'top 90%',
-          end: 'top 60%',
-          scrub: 1,
-        }
-      })
-
-      // Skills
-      if (skillsRef.current) {
-        gsap.from(skillsRef.current.querySelectorAll('.tag'), {
-          opacity: 0,
-          y: 14,
-          stagger: 0.04,
+      // ── Stats: stagger up ──
+      gsap.fromTo('.about__stat',
+        { opacity: 0, y: 32 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.08,
+          duration: 0.7,
+          ease: 'power3.out',
           scrollTrigger: {
-            trigger: skillsRef.current,
-            start: 'top 90%',
-            end: 'top 62%',
-            scrub: 1,
+            trigger: '.about__stats',
+            start: 'top 82%',
+            once: true,
           }
-        })
-      }
+        }
+      )
+
+      // ── Resume link ──
+      gsap.fromTo('.about__resume-link',
+        { opacity: 0, y: 16 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.about__resume-link',
+            start: 'top 88%',
+            once: true,
+          }
+        }
+      )
+
+      // ── Skills tags: stagger up ──
+      gsap.fromTo('.about__skills .tag',
+        { opacity: 0, y: 14 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.04,
+          duration: 0.6,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.about__skills',
+            start: 'top 86%',
+            once: true,
+          }
+        }
+      )
+
     }, sectionRef)
 
     return () => {
@@ -116,7 +133,7 @@ export default function About() {
             <span className="eyebrow__label">About</span>
           </div>
 
-          <h2 className="about__heading" ref={headingRef}>
+          <h2 className="about__heading">
             Building full-stack apps&nbsp;&amp; integrating AI into real products.
           </h2>
 
@@ -142,6 +159,8 @@ export default function About() {
           >
             View Résumé ↗
           </a>
+
+          <GithubHeatmap />
         </div>
 
         {/* Right */}
@@ -163,7 +182,7 @@ export default function About() {
       </div>
 
       {/* Skills */}
-      <div className="about__skills" ref={skillsRef}>
+      <div className="about__skills">
         <span className="about__skills-label">Stack</span>
         {SKILLS.map(s => (
           <span key={s} className="tag">{s}</span>

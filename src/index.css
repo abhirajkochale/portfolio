@@ -1,41 +1,49 @@
-/* ─────────────────────────────────────────
-   DESIGN SYSTEM — DARK EDITORIAL
-   Abhiraj Kochale Portfolio v5.0
-───────────────────────────────────────── */
-
 :root {
-  /* Backgrounds — obsidian spectrum */
-  --bg:        #080809;
-  --bg-2:      #0F0F11;
-  --bg-3:      #161618;
-  --bg-4:      #1E1E21;
-  --bg-light:  #EDEAE1;   /* for inverted sections */
+  /* Backgrounds */
+  --bg:         #F5F1EA;
+  --bg-2:       #EDEAE2;
+  --bg-ink:     #0C0C0C;
 
-  /* Text — warm cream spectrum */
-  --text:      #EDEAE1;
-  --text-2:    #6E6B63;
-  --text-3:    #383530;
-
-  /* Gold accent — used sparingly, memorably */
-  --gold:      #C2965A;
-  --gold-2:    #8B6638;
-  --gold-light:#E8C98A;
+  /* Text */
+  --text:       #0C0C0C;
+  --text-2:     #5C5650;
+  --text-3:     #A8A39C;
 
   /* Borders */
-  --border:    #1A1A1C;
-  --border-2:  #EDEAE1;
+  --border:     #D5D0C8;
+  --border-2:   #0C0C0C;
+
+  /* Accent */
+  --accent:     #1A1A1A;
+  --accent-inv: #F5F1EA;
+  --accent-warm:#C84B31;
 
   /* Fonts */
   --serif:  'Playfair Display', Georgia, serif;
   --sans:   'Inter', 'Helvetica Neue', sans-serif;
-  --mono:   'JetBrains Mono', 'Fira Code', monospace;
 
   /* Easing */
-  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-circ: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-circ:  cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* ── Reset ── */
+/* ── Dark Mode Palette ── */
+[data-theme='dark'] {
+  --bg:         #0e0d0c;
+  --bg-2:       #161514;
+  --bg-ink:     #1a1917; /* Inverted sections become slightly lighter */
+  
+  --text:       #f0ece4;
+  --text-2:     #a39f98;
+  --text-3:     #66635e;
+
+  --border:     #2e2d2a;
+  --border-2:   #f0ece4;
+
+  --accent:     #E5E5E5;
+  --accent-inv: #f0ece4;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -53,20 +61,16 @@ html {
 body {
   overflow-x: hidden;
   background: var(--bg);
-  cursor: none;  /* hide default — custom cursor takes over */
-}
-
-@media (hover: none) {
-  body { cursor: auto; }
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 main {
   overflow-x: hidden;
-  min-height: 100vh;
 }
 
 ::selection {
-  background: var(--gold);
+  background: var(--text);
   color: var(--bg);
 }
 
@@ -81,25 +85,25 @@ img {
 }
 
 button {
-  cursor: none;
+  cursor: pointer;
   background: none;
   border: none;
   font: inherit;
-  color: inherit;
 }
 
 :focus-visible {
-  outline: 1px solid var(--gold);
+  outline: 2px solid var(--text);
   outline-offset: 4px;
 }
 
-/* ── Page wrapper ── */
-.page {
-  padding-top: 80px;  /* nav height */
-  min-height: 100vh;
+/* ── Page Section wrapper ── */
+.page-section {
+  width: 100%;
+  background: var(--bg);
+  position: relative;
 }
 
-/* ── Section ── */
+/* ── Section wrapper ── */
 .section {
   padding: clamp(80px, 11vw, 140px) clamp(28px, 6.5vw, 100px);
   max-width: 1440px;
@@ -107,55 +111,20 @@ button {
   border-top: 1px solid var(--border);
 }
 
-/* ── Page header (inner pages) ── */
-.page-header {
-  padding: clamp(64px, 9vw, 120px) clamp(28px, 6.5vw, 100px) clamp(48px, 6vw, 80px);
-  border-bottom: 1px solid var(--border);
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
-.page-header__eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: var(--gold);
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.page-header__eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--gold);
-}
-
-.page-header__title {
-  font-family: var(--serif);
-  font-weight: 700;
-  font-size: clamp(48px, 7vw, 96px);
-  letter-spacing: -0.03em;
-  line-height: 0.95;
-  color: var(--text);
-}
-
 /* ── Eyebrow ── */
 .eyebrow {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 48px;
+  gap: 12px;
+  margin-bottom: 52px;
 }
 
 .eyebrow__num {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 10px;
-  color: var(--gold);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.22em;
+  color: var(--text-3);
+  text-transform: uppercase;
 }
 
 .eyebrow__sep {
@@ -172,12 +141,32 @@ button {
   color: var(--text-2);
 }
 
-/* ── Section heading ── */
+/* ── Tag ── */
+.tag {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 6px 14px;
+  transition: border-color 0.25s var(--ease-circ), color 0.25s;
+}
+
+.tag:hover {
+  border-color: var(--border-2);
+  color: var(--text);
+}
+
+/* ── Section heading (shared) ── */
 .section-heading {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(32px, 4.5vw, 58px);
-  letter-spacing: -0.025em;
+  font-size: clamp(32px, 4.5vw, 60px);
+  letter-spacing: -0.02em;
   line-height: 1.06;
   color: var(--text);
   margin-bottom: 56px;
@@ -189,68 +178,10 @@ button {
   padding-bottom: 0.06em;
 }
 
-/* ── Tag ── */
-.tag {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  color: var(--text-2);
-  border: 1px solid var(--border);
-  padding: 5px 12px;
-  transition: border-color 0.25s, color 0.25s;
-}
-
-.tag:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
-
-/* ── CTA link ── */
-.cta-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-2);
-  transition: color 0.2s, gap 0.3s var(--ease-expo);
-}
-
-.cta-link:hover {
-  color: var(--text);
-  gap: 12px;
-}
-
-/* ── Divider line ── */
-.divider {
-  width: 100%;
-  height: 1px;
-  background: var(--border);
-  border: none;
-}
-
-/* ── Page transition overlay ── */
-.page-transition {
-  position: fixed;
-  inset: 0;
-  z-index: 9000;
-  background: var(--bg);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  pointer-events: none;
-}
-
-/* ── Grain texture (subtle warmth) ── */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 8000;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.025;
-  pointer-events: none;
+/* -- Responsive Padding Utilities -- */
+.p-4 { padding: 1rem; }
+.p-8 { padding: 2rem; }
+@media (min-width: 768px) {
+  .md\:p-8 { padding: 2rem; }
+  .md\:p-12 { padding: 3rem; }
 }

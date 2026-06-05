@@ -1,0 +1,74 @@
+/* ── TiltCard ── */
+
+/* Card wrapper — transition handles the snap-back on leave */
+.tilt-card {
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* On hover the card gets a thin black border highlight */
+.tilt-card:hover {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* Override .proj-mini hover border on tilt-card to use 1px black outline instead */
+.tilt-card.proj-mini:hover {
+  border: 1px solid var(--bg-ink);
+  outline: none;
+}
+
+/* Glare overlay */
+.tilt-card__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: inherit;
+  /* background is set via JS */
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.tilt-card:hover .tilt-card__glare {
+  opacity: 1;
+}
+
+/* ── Floating Tooltip ── */
+.proj-tooltip {
+  position: absolute;
+  width: 280px;
+  height: 180px;
+  pointer-events: none;
+  z-index: 8000;
+  opacity: 0;
+  transform: scale(0.88) translateY(8px);
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.24);
+}
+
+.proj-tooltip.is-visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.proj-tooltip__preview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px 20px;
+}
+
+.proj-tooltip__name {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}

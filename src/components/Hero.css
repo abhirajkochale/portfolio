@@ -70,34 +70,58 @@
   50% { transform: translateY(4px); }
 }
 
-/* Name */
-.hero__name-outer {
+/* Name Wrapper */
+.hero__name-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  text-align: center;
-  will-change: transform, opacity;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   pointer-events: none;
   z-index: 1;
+}
+
+/* Name */
+.hero__name-outer {
+  text-align: center;
+  will-change: transform, opacity;
 }
 
 .hero__name-clip {
   overflow: hidden;
   line-height: 1;
   padding: 14px 72px;
+  display: flex;
+  justify-content: center;
 }
 
 .hero__word {
-  display: block;
+  display: flex;
   font-family: var(--serif);
   font-weight: 700;
   font-size: clamp(64px, 11vw, 160px);
   letter-spacing: 0.01em;
   line-height: 0.95;
   color: var(--text);
-  will-change: transform;
   white-space: nowrap;
+}
+
+/* Per-character clip mask for the reveal */
+.hero__char-clip {
+  display: inline-block;
+  overflow: hidden;
+  /* must not clip vertically — we want the character to slide up INTO view */
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
+}
+
+.hero__char {
+  display: inline-block;
+  will-change: transform, opacity;
 }
 
 /* Blinking cursor after second word */

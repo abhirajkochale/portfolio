@@ -1,7 +1,7 @@
 /* ── About ── */
 .about__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: clamp(48px, 7vw, 100px);
   align-items: start;
 }
@@ -31,25 +31,17 @@
 /* Stats */
 .about__stats {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   border: 1px solid var(--border);
+  background: var(--border);
+  gap: 1px;
   margin-bottom: 36px;
 }
 
 .about__stat {
   padding: 22px 24px;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  background: var(--bg);
   transition: background 0.2s;
-}
-
-.about__stat:nth-child(2n) {
-  border-right: none;
-}
-
-.about__stat:nth-child(3),
-.about__stat:nth-child(4) {
-  border-bottom: none;
 }
 
 .about__stat:hover {
@@ -155,8 +147,8 @@
     padding: clamp(60px, 10vw, 80px) 24px;
   }
   .about__grid {
-    grid-template-columns: 1fr;
     gap: 40px;
+    grid-template-columns: 1fr; /* Fallback for very small screens */
   }
   .about__photo {
     aspect-ratio: 3 / 4;

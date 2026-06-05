@@ -1,68 +1,78 @@
-import { useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { Suspense, lazy, useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
+import { AnimatePresence } from 'framer-motion'
 import { Analytics } from '@vercel/analytics/react'
+
+import Navbar from './components/Navbar'
+import Lenis from 'lenis'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
-import Navbar      from './components/Navbar'
-import Footer      from './components/Footer'
+gsap.registerPlugin(ScrollTrigger)
+import Footer from './components/Footer'
 import ProgressBar from './components/ProgressBar'
-import Cursor      from './components/Cursor'
-
-import Home        from './pages/Home'
-import Work        from './pages/Work'
-import AboutPage   from './pages/AboutPage'
-import ContactPage from './pages/ContactPage'
-
+import CustomCursor from './components/CustomCursor'
+import GrainOverlay from './components/GrainOverlay'
 import './index.css'
 
-// Reset scroll position + ScrollTrigger on every route change
-function ScrollReset() {
-  const location = useLocation()
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-    ScrollTrigger.getAll().forEach(t => t.kill())
-    ScrollTrigger.refresh()
-  }, [location.pathname])
-
-  return null
-}
-
-// Page entrance animation
-function PageEntrance() {
-  const location = useLocation()
-
-  useEffect(() => {
-    const el = document.querySelector('main, .page') as HTMLElement
-    if (!el) return
-    gsap.fromTo(el,
-      { opacity: 0, y: 32 },
-      { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out', clearProps: 'all' }
-    )
-  }, [location.pathname])
-
-  return null
-}
+const Home = lazy(() => import('./pages/Home'))
+const AboutPage = lazy(() => import('./pages/AboutPage'))
+const ExperiencePage = lazy(() => import('./pages/ExperiencePage'))
+const Work = lazy(() => import('./pages/Work'))
+const WorkDetail = lazy(() => import('./pages/WorkDetail'))
+const ContactPage = lazy(() => import('./pages/ContactPage'))
 
 export default function App() {
+  const location = useLocation()
+
+  useEffect(() => {
+    // Disable smooth scrolling on touch devices natively through Lenis defaults
+    const lenis = new Lenis({
+      lerp: 0.08,
+      smoothWheel: true,
+    })
+
+    // Connect Lenis to GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update)
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000)
+    })
+
+    gsap.ticker.lagSmoothing(0)
+
+    // Reset scroll on route change
+    window.scrollTo(0, 0)
+
+    return () => {
+      gsap.ticker.remove((time) => {
+        lenis.raf(time * 1000)
+      })
+      lenis.destroy()
+    }
+  }, [location.pathname])
+
   return (
-    <BrowserRouter>
+    <HelmetProvider>
       <Analytics />
-      <Cursor />
+      <GrainOverlay />
+      <CustomCursor />
       <ProgressBar />
       <Navbar />
-      <ScrollReset />
-      <PageEntrance />
-
-      <Routes>
-        <Route path="/"        element={<Home />} />
-        <Route path="/work"    element={<Work />} />
-        <Route path="/about"   element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-      </Routes>
-
+      <main>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Suspense fallback={null}><Home /></Suspense>} />
+            <Route path="/about" element={<Suspense fallback={null}><AboutPage /></Suspense>} />
+            <Route path="/experience" element={<Suspense fallback={null}><ExperiencePage /></Suspense>} />
+            <Route path="/work" element={<Suspense fallback={null}><Work /></Suspense>} />
+            <Route path="/work/:slug" element={<Suspense fallback={null}><WorkDetail /></Suspense>} />
+            <Route path="/contact" element={<Suspense fallback={null}><ContactPage /></Suspense>} />
+          </Routes>
+        </AnimatePresence>
+      </main>
       <Footer />
-    </BrowserRouter>
+    </HelmetProvider>
   )
 }

@@ -1,80 +1,97 @@
-import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
+import { Sun, Moon } from 'lucide-react'
+import { useTheme } from '../hooks/useTheme'
 import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 import './Navbar.css'
 
-const LINKS = [
-  { label: 'Work',    to: '/work'    },
-  { label: 'About',   to: '/about'   },
-  { label: 'Contact', to: '/contact' },
+const NAV_LINKS = [
+  { label: 'About',      href: '/about'          },
+  { label: 'Experience', href: '/experience'     },
+  { label: 'Work',       href: '/work'           },
+  { label: 'Contact',    href: '/contact'        },
 ]
 
 export default function Navbar() {
   const [scrolled,  setScrolled]  = useState(false)
   const [menuOpen,  setMenuOpen]  = useState(false)
+  const overlayRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
+  const { theme, toggleTheme } = useTheme()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const st = ScrollTrigger.create({
+      start: 'top -80',
+      onUpdate: (self) => setScrolled(self.scroll() > 80),
+    })
+    return () => { st.kill() }
   }, [])
 
-  // Close menu on route change
   useEffect(() => {
-    setMenuOpen(false)
-    document.body.style.overflow = ''
-  }, [location.pathname])
-
-  useEffect(() => {
-    const overlay = document.querySelector('.nav-overlay') as HTMLElement
-    if (!overlay) return
+    if (!overlayRef.current) return
     if (menuOpen) {
       document.body.style.overflow = 'hidden'
-      gsap.fromTo(overlay,
+      gsap.fromTo(overlayRef.current,
         { clipPath: 'inset(0 0 100% 0)' },
         { clipPath: 'inset(0 0 0% 0)', duration: 0.7, ease: 'cubic-bezier(0.76,0,0.24,1)' }
       )
     } else {
       document.body.style.overflow = ''
-      gsap.to(overlay, {
+      gsap.to(overlayRef.current, {
         clipPath: 'inset(0 0 100% 0)',
-        duration: 0.65,
+        duration: 0.7,
         ease: 'cubic-bezier(0.76,0,0.24,1)',
       })
     }
   }, [menuOpen])
 
-  const isActive = (to: string) => location.pathname === to
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    setMenuOpen(false)
+  }, [location.pathname])
 
   return (
     <>
-      <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
-        <Link to="/" className="nav__logo" aria-label="Home">
+      <header className={`nav ${scrolled ? 'scrolled' : ''}`}>
+        <NavLink
+          className="nav__logo"
+          to="/"
+          onClick={() => { if (location.pathname === '/') window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+        >
           AK
-        </Link>
+        </NavLink>
 
         <div className="nav__right">
           <nav className="nav__links" aria-label="Main navigation">
-            {LINKS.map(({ label, to }) => (
-              <Link
-                key={to}
-                to={to}
-                className={`nav__link ${isActive(to) ? 'nav__link--active' : ''}`}
+            {NAV_LINKS.map(({ label, href }) => (
+              <NavLink
+                key={href}
+                to={href}
+                className={({ isActive }) => `nav__link ${isActive ? 'active' : ''}`}
               >
                 {label}
-              </Link>
+              </NavLink>
             ))}
           </nav>
 
           <a
-            className="nav__resume"
+            className="nav__cta"
             href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
             target="_blank"
             rel="noopener noreferrer"
           >
             Résumé ↗
           </a>
+
+          <button 
+            className="nav__theme-toggle" 
+            onClick={toggleTheme}
+            aria-label="Toggle dark mode"
+          >
+            {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+          </button>
 
           <button
             className={`nav__burger ${menuOpen ? 'is-open' : ''}`}
@@ -87,35 +104,29 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile overlay */}
-      <div className="nav-overlay" aria-hidden={!menuOpen}>
-        <div className="nav-overlay__inner">
-          <nav className="nav-overlay__links">
-            {LINKS.map(({ label, to }) => (
-              <Link
-                key={to}
-                to={to}
-                className="nav-overlay__link"
-                tabIndex={menuOpen ? 0 : -1}
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-          <a
-            className="nav-overlay__resume"
-            href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
-            target="_blank"
-            rel="noopener noreferrer"
-            tabIndex={menuOpen ? 0 : -1}
-          >
-            View Résumé ↗
-          </a>
-          <div className="nav-overlay__meta">
-            <span>Mumbai, India</span>
-            <span>Full-Stack Developer</span>
-          </div>
-        </div>
+      <div className="nav-overlay" ref={overlayRef} aria-hidden={!menuOpen}>
+        <nav className="nav-overlay__links">
+          {NAV_LINKS.map(({ label, href }) => (
+            <NavLink
+              key={href}
+              to={href}
+              className="nav-overlay__link"
+              onClick={() => setMenuOpen(false)}
+              tabIndex={menuOpen ? 0 : -1}
+            >
+              {label}
+            </NavLink>
+          ))}
+        </nav>
+        <a
+          className="nav-overlay__cta"
+          href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={menuOpen ? 0 : -1}
+        >
+          View Résumé ↗
+        </a>
       </div>
     </>
   )

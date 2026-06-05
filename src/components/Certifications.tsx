@@ -25,19 +25,44 @@ export default function Certifications() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.cert-card', {
-        opacity: 0,
-        y: 48,
-        scale: 0.97,
-        stagger: 0.12,
-        duration: 0.85,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.certs__grid',
-          start: 'top 84%',
-          once: true,
+
+      // ── Heading: clip-path reveal ──
+      gsap.fromTo('.certifications .section-heading',
+        { clipPath: 'inset(0 100% 0 0)' },
+        {
+          clipPath: 'inset(0 0% 0 0)',
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.certifications .section-heading',
+            start: 'top 80%',
+            once: true,
+          }
         }
-      })
+      )
+
+      // ── Cert cards: diagonal cascade (x + y offset, staggered) ──
+      gsap.fromTo('.cert-card',
+        (i: number) => ({
+          opacity: 0,
+          x: i % 2 === 0 ? -30 : 30,   // first card from left, second from right
+          y: 40,
+        }),
+        {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          stagger: 0.14,
+          duration: 0.85,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.certs__grid',
+            start: 'top 80%',
+            once: true,
+          }
+        }
+      )
+
     }, sectionRef)
 
     return () => {

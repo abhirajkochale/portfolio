@@ -1,140 +1,312 @@
-/* ── Experience ── */
-.exp__list {
-  border-top: 1px solid var(--border);
-}
+/* ── Horizontal Experience ── */
 
-.exp-row {
-  display: grid;
-  grid-template-columns: 56px 1fr auto;
-  gap: 32px;
-  padding: 40px 0;
-  border-bottom: 1px solid var(--border);
-  align-items: start;
+/* 
+  .exp-h-section is the scroll container.
+  Height = 100vh (sticky view) + (N-1) panels worth of scroll distance.
+  GSAP pins .exp-h-pin and drives .exp-track horizontally.
+*/
+.exp-h-section {
+  /* height set via JS: N panels × 100vw extra scroll */
   position: relative;
-  transition: background 0.25s ease;
-  cursor: default;
+  overflow: hidden; /* prevent body scroll-x bleed */
 }
 
-.exp-row::before {
-  content: '';
-  position: absolute;
-  left: 0;
+/* Sticky pin box */
+.exp-h-pin {
+  position: sticky;
   top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--text);
-  transform: scaleY(0);
-  transform-origin: top center;
-  transition: transform 0.45s var(--ease-expo);
-}
-
-.exp-row:hover::before {
-  transform: scaleY(1);
-}
-
-.exp-row:hover {
-  background: var(--bg-2);
-  padding-left: 20px;
-}
-
-/* Index number */
-.exp-row__index {
-  font-family: var(--sans);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: var(--text-3);
-  padding-top: 4px;
-  text-transform: uppercase;
-  user-select: none;
-}
-
-/* Main */
-.exp-row__main {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  justify-content: stretch;
 }
 
-.exp-row__role {
+/* ── Horizontal track ── */
+.exp-track {
+  display: flex;
+  width: max-content; /* 100vw * N */
+  height: 100%;
+  will-change: transform;
+}
+
+/* ── Individual Panel ── */
+.exp-panel {
+  width: 100vw;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid var(--border);
+  padding-top: 80px; /* below navbar */
+}
+
+/* Giant faded background number */
+.exp-panel__bg-num {
+  position: absolute;
+  top: 50%;
+  left: clamp(28px, 6vw, 80px);
+  transform: translateY(-60%);
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(140px, 20vw, 240px);
+  line-height: 1;
+  color: var(--text);
+  opacity: 0.05;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Left half ── */
+.exp-panel__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 clamp(40px, 7vw, 100px);
+  position: relative;
+  z-index: 1;
+  border-right: 1px solid var(--border);
+}
+
+.exp-panel__index {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 20px;
+}
+
+.exp-panel__role {
   font-family: var(--sans);
   font-weight: 500;
-  font-size: 18px;
+  font-size: clamp(22px, 3vw, 38px);
   color: var(--text);
-  line-height: 1.2;
+  line-height: 1.15;
+  margin-bottom: 10px;
 }
 
-.exp-row__company {
+.exp-panel__company {
   font-family: var(--serif);
   font-style: italic;
-  font-weight: 400;
-  font-size: 16px;
+  font-size: clamp(16px, 2vw, 22px);
   color: var(--text-2);
+  margin-bottom: 8px;
 }
 
-.exp-row__desc {
-  font-family: var(--sans);
-  font-weight: 300;
-  font-size: 14px;
-  line-height: 1.8;
-  color: var(--text-2);
-  max-width: 520px;
-  margin-top: 10px;
-}
-
-.exp-row__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 14px;
-}
-
-/* Meta */
-.exp-row__meta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-  padding-top: 4px;
-  min-width: 140px;
-}
-
-.exp-row__date {
+.exp-panel__meta {
   font-family: var(--sans);
   font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--text-3);
-  letter-spacing: 0.04em;
-  white-space: nowrap;
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
 }
 
-.exp-row__loc,
-.exp-row__type {
+/* ── Right half ── */
+.exp-panel__right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 clamp(40px, 7vw, 100px);
+  gap: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.exp-panel__desc {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: clamp(14px, 1.5vw, 16px);
+  line-height: 1.85;
+  color: var(--text-2);
+}
+
+.exp-panel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Bar Chart ── */
+.exp-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.exp-chart__label {
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 10px;
+}
+
+.exp-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.exp-bar__name {
   font-family: var(--sans);
   font-size: 10px;
-  color: var(--text-3);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
+  color: var(--text-2);
+  width: 120px;
+  flex-shrink: 0;
   text-transform: uppercase;
 }
 
-@media (max-width: 768px) {
-  .section.experience {
-    padding: clamp(60px, 10vw, 80px) 24px;
+.exp-bar__track {
+  flex: 1;
+  height: 3px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-bar__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--text);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.exp-panel.is-active .exp-bar__fill {
+  transform: scaleX(1);
+}
+
+.exp-bar__pct {
+  font-family: var(--sans);
+  font-size: 10px;
+  color: var(--text-3);
+  width: 32px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── Timeline row ── */
+.exp-h-timeline {
+  position: absolute;
+  bottom: 68px;
+  left: clamp(40px, 7vw, 100px);
+  right: clamp(40px, 7vw, 100px);
+  height: 1px;
+  background: var(--border);
+  z-index: 10;
+}
+
+.exp-h-timeline__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--text);
+  width: 0%;
+  transition: width 0.05s linear;
+}
+
+.exp-h-timeline__dot {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: var(--text);
+  border-radius: 50%;
+  transition: left 0.05s linear;
+}
+
+/* Panel tick marks on timeline */
+.exp-h-timeline__tick {
+  position: absolute;
+  top: -4px;
+  width: 1px;
+  height: 9px;
+  background: var(--border);
+}
+
+/* ── Scroll indicator label ── */
+.exp-h-indicator {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.exp-h-indicator__arrow {
+  display: inline-block;
+  animation: slide-right 1.6s ease-in-out infinite;
+}
+
+@keyframes slide-right {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(5px); }
+}
+
+/* ── Section heading wrapper (above pin) ── */
+.exp-h-header {
+  padding: clamp(80px, 10vw, 120px) clamp(28px, 6.5vw, 100px) 0;
+}
+
+/* ── Fallback for mobile: vertical list ── */
+@media (max-width: 900px) {
+  .exp-h-section {
+    height: auto !important;
+    overflow: visible;
   }
-  .exp-row {
-    grid-template-columns: 36px 1fr;
-    gap: 16px;
-    padding: 28px 0;
+  .exp-h-pin {
+    position: relative;
+    height: auto;
+    overflow: visible;
   }
-  .exp-row:hover {
-    padding-left: 0;
+  .exp-track {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    transform: none !important;
   }
-  .exp-row::before {
+  .exp-panel {
+    width: 100%;
+    height: auto;
+    grid-template-columns: 1fr;
+    padding: 60px clamp(24px, 6vw, 60px);
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-panel__left {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 0 0 40px 0;
+  }
+  .exp-panel__right {
+    padding: 40px 0 0 0;
+  }
+  .exp-h-timeline,
+  .exp-h-indicator {
     display: none;
-  }
-  .exp-row__meta {
-    grid-column: 1 / -1;
-    align-items: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 12px;
   }
 }
