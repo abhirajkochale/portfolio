@@ -1,91 +1,74 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
 import './Navbar.css'
 
-const NAV_LINKS = [
-  { label: 'About',      href: '#about'          },
-  { label: 'Experience', href: '#experience'     },
-  { label: 'Work',       href: '#projects'       },
-  { label: 'Contact',    href: '#contact'        },
+const LINKS = [
+  { label: 'Work',    to: '/work'    },
+  { label: 'About',   to: '/about'   },
+  { label: 'Contact', to: '/contact' },
 ]
 
 export default function Navbar() {
   const [scrolled,  setScrolled]  = useState(false)
   const [menuOpen,  setMenuOpen]  = useState(false)
-  const [active,    setActive]    = useState('')
-  const overlayRef = useRef<HTMLDivElement>(null)
+  const location = useLocation()
 
   useEffect(() => {
-    const st = ScrollTrigger.create({
-      start: 'top -80',
-      onUpdate: (self) => setScrolled(self.scroll() > 80),
-    })
-    return () => { st.kill() }
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Close menu on route change
   useEffect(() => {
-    const sections = NAV_LINKS.map(l => document.querySelector(l.href))
-    const obs = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) setActive('#' + e.target.id) }),
-      { rootMargin: '-50% 0px -50% 0px' }
-    )
-    sections.forEach(s => s && obs.observe(s))
-    return () => obs.disconnect()
-  }, [])
+    setMenuOpen(false)
+    document.body.style.overflow = ''
+  }, [location.pathname])
 
   useEffect(() => {
-    if (!overlayRef.current) return
+    const overlay = document.querySelector('.nav-overlay') as HTMLElement
+    if (!overlay) return
     if (menuOpen) {
       document.body.style.overflow = 'hidden'
-      gsap.fromTo(overlayRef.current,
+      gsap.fromTo(overlay,
         { clipPath: 'inset(0 0 100% 0)' },
         { clipPath: 'inset(0 0 0% 0)', duration: 0.7, ease: 'cubic-bezier(0.76,0,0.24,1)' }
       )
     } else {
       document.body.style.overflow = ''
-      gsap.to(overlayRef.current, {
+      gsap.to(overlay, {
         clipPath: 'inset(0 0 100% 0)',
-        duration: 0.7,
+        duration: 0.65,
         ease: 'cubic-bezier(0.76,0,0.24,1)',
       })
     }
   }, [menuOpen])
 
-  const go = (href: string) => {
-    setMenuOpen(false)
-    setTimeout(() => {
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-    }, 450)
-  }
+  const isActive = (to: string) => location.pathname === to
 
   return (
     <>
-      <header className={`nav ${scrolled ? 'scrolled' : ''}`}>
-        <a
-          className="nav__logo"
-          href="#"
-          onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-        >
+      <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
+        <Link to="/" className="nav__logo" aria-label="Home">
           AK
-        </a>
+        </Link>
 
         <div className="nav__right">
           <nav className="nav__links" aria-label="Main navigation">
-            {NAV_LINKS.map(({ label, href }) => (
-              <a
-                key={href}
-                href={href}
-                className={`nav__link ${active === href ? 'active' : ''}`}
-                onClick={e => { e.preventDefault(); go(href) }}
+            {LINKS.map(({ label, to }) => (
+              <Link
+                key={to}
+                to={to}
+                className={`nav__link ${isActive(to) ? 'nav__link--active' : ''}`}
               >
                 {label}
-              </a>
+              </Link>
             ))}
           </nav>
 
           <a
-            className="nav__cta"
+            className="nav__resume"
             href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
             target="_blank"
             rel="noopener noreferrer"
@@ -104,29 +87,35 @@ export default function Navbar() {
         </div>
       </header>
 
-      <div className="nav-overlay" ref={overlayRef} aria-hidden={!menuOpen}>
-        <nav className="nav-overlay__links">
-          {NAV_LINKS.map(({ label, href }) => (
-            <a
-              key={href}
-              href={href}
-              className="nav-overlay__link"
-              onClick={e => { e.preventDefault(); go(href) }}
-              tabIndex={menuOpen ? 0 : -1}
-            >
-              {label}
-            </a>
-          ))}
-        </nav>
-        <a
-          className="nav-overlay__cta"
-          href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
-          target="_blank"
-          rel="noopener noreferrer"
-          tabIndex={menuOpen ? 0 : -1}
-        >
-          View Résumé ↗
-        </a>
+      {/* Mobile overlay */}
+      <div className="nav-overlay" aria-hidden={!menuOpen}>
+        <div className="nav-overlay__inner">
+          <nav className="nav-overlay__links">
+            {LINKS.map(({ label, to }) => (
+              <Link
+                key={to}
+                to={to}
+                className="nav-overlay__link"
+                tabIndex={menuOpen ? 0 : -1}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+          <a
+            className="nav-overlay__resume"
+            href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
+            target="_blank"
+            rel="noopener noreferrer"
+            tabIndex={menuOpen ? 0 : -1}
+          >
+            View Résumé ↗
+          </a>
+          <div className="nav-overlay__meta">
+            <span>Mumbai, India</span>
+            <span>Full-Stack Developer</span>
+          </div>
+        </div>
       </div>
     </>
   )
