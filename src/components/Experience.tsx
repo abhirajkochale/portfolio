@@ -5,6 +5,7 @@ import './Experience.css'
 
 const EXP = [
   {
+    index: '01',
     date: 'Jun 2025 — Aug 2025',
     role: 'Machine Learning Intern',
     company: 'Wayspire Ed-Tech Pvt Ltd',
@@ -14,6 +15,7 @@ const EXP = [
     tags: ['Python', 'ML', 'OpenCV', 'Scikit-learn'],
   },
   {
+    index: '02',
     date: '2024 — Present',
     role: 'Social Media Manager',
     company: 'Awesome Kids International Preschool',
@@ -23,6 +25,7 @@ const EXP = [
     tags: ['Content Strategy', 'Instagram', 'Analytics'],
   },
   {
+    index: '03',
     date: 'Oct 2025 — Present',
     role: 'Marketing Team Member',
     company: 'SMLRA',
@@ -40,16 +43,21 @@ export default function Experience() {
     const ctx = gsap.context(() => {
       gsap.from('.exp-row', {
         opacity: 0,
-        y: 60,
-        stagger: 0.1,
+        y: 50,
+        stagger: {
+          each: 0.12,
+          from: 'start',
+        },
+        duration: 0.9,
+        ease: 'power3.out',
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-          end: 'top 35%',
-          scrub: 1
+          trigger: '.exp__list',
+          start: 'top 82%',
+          once: true,
         },
       })
     }, sectionRef)
+
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill())
       ctx.revert()
@@ -65,14 +73,15 @@ export default function Experience() {
         <span className="eyebrow__label">Experience</span>
       </div>
 
-      <h2 className="about__heading" style={{ marginBottom: '64px' }}>
+      <h2 className="section-heading">
         The journey so far.
       </h2>
 
       <div className="exp__list">
-        {EXP.map((e, i) => (
-          <div className="exp-row" key={i}>
-            <div className="exp-row__date">{e.date}</div>
+        {EXP.map((e) => (
+          <div className="exp-row" key={e.index}>
+
+            <div className="exp-row__index">{e.index}</div>
 
             <div className="exp-row__main">
               <div className="exp-row__role">{e.role}</div>
@@ -84,9 +93,11 @@ export default function Experience() {
             </div>
 
             <div className="exp-row__meta">
+              <div className="exp-row__date">{e.date}</div>
               <div className="exp-row__loc">{e.location}</div>
               <div className="exp-row__type">{e.type}</div>
             </div>
+
           </div>
         ))}
       </div>

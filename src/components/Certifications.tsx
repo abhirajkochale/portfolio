@@ -5,12 +5,14 @@ import './Certifications.css'
 
 const CERTS = [
   {
+    index: '01',
     title: 'Machine Learning with Python',
     issuer: 'IBM',
     date: 'August 2025',
     credentialUrl: 'https://www.credly.com/badges/acde1ca6-d871-4147-9395-5e4ecd77c06a/',
   },
   {
+    index: '02',
     title: 'ML Internship & Training Certificate',
     issuer: 'Wayspire Ed-Tech Pvt Ltd',
     date: 'August 2025',
@@ -24,17 +26,20 @@ export default function Certifications() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.cert-card', {
-        opacity: 0, 
-        y: 80, 
-        stagger: 0.1, 
-        scrollTrigger: { 
-          trigger: '.certs__grid', 
-          start: 'top 85%', 
-          end: 'top 40%',
-          scrub: 1 
+        opacity: 0,
+        y: 48,
+        scale: 0.97,
+        stagger: 0.12,
+        duration: 0.85,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.certs__grid',
+          start: 'top 84%',
+          once: true,
         }
       })
     }, sectionRef)
+
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill())
       ctx.revert()
@@ -43,27 +48,33 @@ export default function Certifications() {
 
   return (
     <section id="certifications" className="section certifications" ref={sectionRef}>
-      
+
       <div className="eyebrow">
         <span className="eyebrow__num">04</span>
         <span className="eyebrow__sep">/</span>
         <span className="eyebrow__label">Certifications</span>
       </div>
 
-      <h2 className="about__heading" style={{ marginBottom: '48px' }}>
+      <h2 className="section-heading">
         Verified learning milestones.
       </h2>
 
       <div className="certs__grid">
-        {CERTS.map((c, i) => (
-          <article key={i} className="cert-card">
+        {CERTS.map((c) => (
+          <article key={c.index} className="cert-card">
+            <div className="cert-card__index">{c.index}</div>
             <div className="cert-card__issuer">{c.issuer}</div>
             <h3 className="cert-card__title">{c.title}</h3>
             <div className="cert-card__date">{c.date}</div>
             <div className="cert-card__footer">
               {c.credentialUrl && (
-                <a href={c.credentialUrl} target="_blank" rel="noopener noreferrer" className="cert-card__link">
-                  VIEW CERTIFICATE ↗
+                <a
+                  href={c.credentialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cert-card__link"
+                >
+                  View Certificate ↗
                 </a>
               )}
             </div>

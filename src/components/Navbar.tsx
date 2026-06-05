@@ -4,16 +4,16 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 import './Navbar.css'
 
 const NAV_LINKS = [
-  { label: 'About',      href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Work',       href: '#projects' },
-  { label: 'Contact',    href: '#contact' },
+  { label: 'About',      href: '#about'          },
+  { label: 'Experience', href: '#experience'     },
+  { label: 'Work',       href: '#projects'       },
+  { label: 'Contact',    href: '#contact'        },
 ]
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [active, setActive] = useState('')
+  const [scrolled,  setScrolled]  = useState(false)
+  const [menuOpen,  setMenuOpen]  = useState(false)
+  const [active,    setActive]    = useState('')
   const overlayRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -40,12 +40,14 @@ export default function Navbar() {
       document.body.style.overflow = 'hidden'
       gsap.fromTo(overlayRef.current,
         { clipPath: 'inset(0 0 100% 0)' },
-        { clipPath: 'inset(0 0 0% 0)', duration: 0.65, ease: 'cubic-bezier(0.76,0,0.24,1)' }
+        { clipPath: 'inset(0 0 0% 0)', duration: 0.7, ease: 'cubic-bezier(0.76,0,0.24,1)' }
       )
     } else {
       document.body.style.overflow = ''
       gsap.to(overlayRef.current, {
-        clipPath: 'inset(0 0 100% 0)', duration: 0.65, ease: 'cubic-bezier(0.76,0,0.24,1)',
+        clipPath: 'inset(0 0 100% 0)',
+        duration: 0.7,
+        ease: 'cubic-bezier(0.76,0,0.24,1)',
       })
     }
   }, [menuOpen])
@@ -54,7 +56,7 @@ export default function Navbar() {
     setMenuOpen(false)
     setTimeout(() => {
       document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-    }, 400)
+    }, 450)
   }
 
   return (
@@ -65,7 +67,7 @@ export default function Navbar() {
           href="#"
           onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
         >
-          Abhiraj Kochale
+          AK
         </a>
 
         <div className="nav__right">
@@ -81,13 +83,14 @@ export default function Navbar() {
               </a>
             ))}
           </nav>
+
           <a
             className="nav__cta"
             href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
             target="_blank"
             rel="noopener noreferrer"
           >
-            RESUME ↗
+            Résumé ↗
           </a>
 
           <button
@@ -114,15 +117,16 @@ export default function Navbar() {
               {label}
             </a>
           ))}
-          <a
-            className="nav-overlay__cta"
-            href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
-            target="_blank" rel="noopener noreferrer"
-            tabIndex={menuOpen ? 0 : -1}
-          >
-            RESUME ↗
-          </a>
         </nav>
+        <a
+          className="nav-overlay__cta"
+          href="https://drive.google.com/file/d/1PBIsSSMcjQMXKFpYdFMTgW8a4ABVlHz8/view?usp=drive_open"
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={menuOpen ? 0 : -1}
+        >
+          View Résumé ↗
+        </a>
       </div>
     </>
   )

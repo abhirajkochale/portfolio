@@ -36,29 +36,37 @@ export default function Projects() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.proj-featured', {
-        opacity: 0, 
-        y: 100, 
-        scrollTrigger: { 
-          trigger: '.proj-featured', 
-          start: 'top 85%', 
-          end: 'top 40%',
-          scrub: 1 
+      // Featured card: clip-path reveal
+      gsap.fromTo('.proj-featured',
+        { clipPath: 'inset(0 0 100% 0)', opacity: 1 },
+        {
+          clipPath: 'inset(0 0 0% 0)',
+          duration: 1.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.proj-featured',
+            start: 'top 82%',
+            once: true,
+          }
         }
-      })
+      )
 
+      // Mini cards stagger
       gsap.from('.proj-mini', {
-        opacity: 0, 
-        y: 80, 
-        stagger: 0.1, 
-        scrollTrigger: { 
-          trigger: '.proj-grid', 
-          start: 'top 85%', 
-          end: 'top 40%',
-          scrub: 1 
+        opacity: 0,
+        y: 60,
+        scale: 0.97,
+        stagger: 0.1,
+        duration: 0.85,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.proj-grid',
+          start: 'top 84%',
+          once: true,
         }
       })
     }, sectionRef)
+
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill())
       ctx.revert()
@@ -67,7 +75,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="section projects" ref={sectionRef}>
-      
+
       <div className="proj__header">
         <div>
           <div className="eyebrow">
@@ -75,14 +83,14 @@ export default function Projects() {
             <span className="eyebrow__sep">/</span>
             <span className="eyebrow__label">Selected Work</span>
           </div>
-          <h2 className="about__heading" style={{ marginBottom: 0 }}>
+          <h2 className="section-heading" style={{ marginBottom: 0 }}>
             Things I've built and shipped.
           </h2>
         </div>
         <div className="proj__count">(4 projects)</div>
       </div>
 
-      {/* Featured Card */}
+      {/* Featured — inverted */}
       <article className="proj-featured">
         <div className="proj-featured__left">
           <div className="proj-featured__num">01</div>
@@ -97,8 +105,13 @@ export default function Projects() {
             ))}
           </div>
           <div className="proj-featured__footer">
-            <a href="https://awesomekids-parents-portal.vercel.app/" target="_blank" rel="noopener noreferrer" className="proj__link proj__link--primary">
-              VIEW LIVE DEMO ↗
+            <a
+              href="https://awesomekids-parents-portal.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="proj__link proj__link--primary"
+            >
+              View Live Demo ↗
             </a>
           </div>
         </div>
@@ -106,16 +119,16 @@ export default function Projects() {
         <div className="proj-featured__right">
           <div className="proj-stat">
             <div className="proj-stat__num">150+</div>
-            <div className="proj-stat__label">ACTIVE USERS</div>
+            <div className="proj-stat__label">Active Users</div>
           </div>
           <div className="proj-stat">
             <div className="proj-stat__num">80+</div>
-            <div className="proj-stat__label">ADMISSIONS PROCESSED</div>
+            <div className="proj-stat__label">Admissions Processed</div>
           </div>
         </div>
       </article>
 
-      {/* Bento Grid */}
+      {/* Bento grid */}
       <div className="proj-grid">
         {GRID_PROJECTS.map(p => (
           <article key={p.num} className="proj-mini">
@@ -129,12 +142,12 @@ export default function Projects() {
             <div className="proj-mini__footer">
               {p.live && (
                 <a href={p.live} target="_blank" rel="noopener noreferrer" className="proj__link">
-                  VIEW PROJECT ↗
+                  View Project ↗
                 </a>
               )}
               {p.github && (
                 <a href={p.github} target="_blank" rel="noopener noreferrer" className="proj__link">
-                  GITHUB ↗
+                  GitHub ↗
                 </a>
               )}
             </div>

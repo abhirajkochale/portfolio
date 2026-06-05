@@ -19,20 +19,18 @@ export default function App() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const sections = gsap.utils.toArray('.page-section')
-      
-      sections.forEach((sec: any, i) => {
-        // Alternate slide in from left/right
-        const xOffset = i % 2 === 0 ? -120 : 120
+      const sections = gsap.utils.toArray<HTMLElement>('.page-section')
 
+      sections.forEach((sec) => {
         gsap.from(sec, {
           opacity: 0,
-          x: xOffset,
+          y: 64,
+          duration: 1.1,
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: sec,
-            start: 'top 95%',
-            end: 'top 50%',
-            scrub: 1,
+            start: 'top 90%',
+            once: true,
           }
         })
       })

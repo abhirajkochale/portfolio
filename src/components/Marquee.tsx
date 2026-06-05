@@ -1,8 +1,8 @@
 import './Marquee.css'
 
 const ITEMS = [
-  'REACT', 'TYPESCRIPT', 'PYTHON', 'NODE.JS',
-  'SUPABASE', 'POSTGRESQL', 'SCIKIT-LEARN', 'GSAP', 'GEMINI API', 'OPENCV'
+  'React', 'TypeScript', 'Python', 'Node.js',
+  'Supabase', 'PostgreSQL', 'Scikit-learn', 'GSAP', 'Gemini API', 'OpenCV'
 ]
 
 export default function Marquee() {
