@@ -1,34 +1,14 @@
-import './Footer.css'
-
 export default function Footer() {
   return (
-    <footer className="footer">
-      <div className="footer__masthead" aria-hidden="true">
-        <div className="footer__name">ABHIRAJ KOCHALE</div>
-      </div>
-      <div className="footer__bar">
-        <span className="footer__copy">
-          Designed &amp; Built by Abhiraj Kochale · 2026
-        </span>
-        <div className="footer__links">
-          <a
-            href="https://github.com/abhirajkochale"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer__link"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/abhiraj-kochale-543284309"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer__link"
-          >
-            LinkedIn
-          </a>
-        </div>
+    <footer className="w-full bg-bg border-t border-border py-6">
+      <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,3.5rem)] flex flex-col md:flex-row items-center justify-between gap-4">
+        <p className="font-mono text-[0.7rem] text-muted text-center md:text-left">
+          Designed & Built by Abhiraj Kochale — 2025
+        </p>
+        <p className="font-mono text-[0.7rem] text-muted text-center md:text-right">
+          Made with React + TypeScript
+        </p>
       </div>
     </footer>
-  )
+  );
 }

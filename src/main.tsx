@@ -1,24 +1,16 @@
-import React from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import Lenis from 'lenis'
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 
-gsap.registerPlugin(ScrollTrigger)
+// @ts-ignore
+import '@fontsource-variable/plus-jakarta-sans';
+// @ts-ignore
+import '@fontsource/dm-mono';
 
-const lenis = new Lenis({ lerp: 0.075, smoothWheel: true })
-lenis.on('scroll', ScrollTrigger.update)
-gsap.ticker.add((time) => lenis.raf(time * 1000))
-gsap.ticker.lagSmoothing(0)
-
-import { BrowserRouter } from 'react-router-dom'
+import './index.css';
+import App from './App';
 
 createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
-)
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
