@@ -41,7 +41,7 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 w-full z-[100] h-[64px] transition-all duration-400 ease-in-out border-b ${
           isScrolled 
-            ? 'bg-[#0D0D0D]/90 backdrop-blur-md border-border' 
+            ? 'bg-bg/92 backdrop-blur-md border-border' 
             : 'bg-transparent border-transparent'
         }`}
       >
@@ -51,7 +51,7 @@ export default function Navbar() {
           <a 
             href="#" 
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="font-body font-extrabold text-[1.2rem] text-accent tracking-[0.05em]"
+            className="font-body font-extrabold text-[1.2rem] text-text"
           >
             AK
           </a>
@@ -72,14 +72,14 @@ export default function Navbar() {
                     delay: 0.3 + (index * 0.06) 
                   }}
                   className={`relative font-mono text-[0.72rem] tracking-[0.18em] uppercase py-1 transition-colors duration-200 ${
-                    isActive ? 'text-accent' : 'text-muted hover:text-text'
+                    isActive ? 'text-text font-bold' : 'text-muted hover:text-text'
                   }`}
                 >
                   {link.name}
                   {isActive && (
                     <motion.div
                       layoutId="nav-dot"
-                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-accent rounded-full"
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-text rounded-full"
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   )}
@@ -93,9 +93,9 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.8 }}
-            className="hidden md:flex items-center gap-2 border border-[#22c55e] text-[#22c55e] rounded-full px-[14px] py-[5px] whitespace-nowrap font-mono text-[0.68rem]"
+            className="hidden md:flex items-center gap-2 border border-muted text-muted rounded-full px-[14px] py-[5px] whitespace-nowrap font-mono text-[0.68rem]"
           >
-            <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-availability-pulse" />
+            <span className="w-2 h-2 rounded-full bg-muted animate-availability-pulse" />
             Available
           </motion.div>
 
@@ -121,7 +121,7 @@ export default function Navbar() {
           >
             {/* Top Bar inside Menu */}
             <div className="flex justify-between items-center h-[64px] mb-12">
-              <span className="font-body font-extrabold text-[1.2rem] text-accent tracking-[0.05em]">
+              <span className="font-body font-extrabold text-[1.2rem] text-text">
                 AK
               </span>
               <button 
