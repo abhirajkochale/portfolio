@@ -30,7 +30,7 @@ export default function Hero() {
 
   return (
     <section ref={containerRef} id="hero" className="relative w-full bg-bg flex flex-col overflow-hidden pt-[120px] pb-16 md:pb-24">
-      
+
       {/* Soft Blob */}
       <div className="absolute top-[-20%] right-[-5%] w-[500px] h-[500px] rounded-full opacity-50 pointer-events-none z-0 blur-[60px]"
         style={{ background: 'radial-gradient(circle, var(--color-pastel-blue) 0%, transparent 70%)' }} />
@@ -48,7 +48,7 @@ export default function Hero() {
 
       {/* Main Content */}
       <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,3.5rem)] relative z-10 flex flex-col flex-grow">
-        
+
         {/* RIGHT SIDE: Profile Photo (Desktop Only) */}
         <motion.div
           style={{ y: portraitY }}
@@ -61,7 +61,7 @@ export default function Hero() {
 
         <div className="w-full flex flex-col relative z-20 pointer-events-none">
           {/* Mobile Portrait */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }}
             className="lg:hidden w-24 h-24 mb-6 rounded-full overflow-hidden border border-border/50 shadow-sm pointer-events-auto"
           >
@@ -95,7 +95,7 @@ export default function Hero() {
             <a href="#work" className="text-text border-b-[1.5px] border-text pb-0.5 hover:text-muted transition-colors">
               View My Work →
             </a>
-            <a href="https://drive.google.com/file/d/1kUcZJAG2pRXyKAz8lzwpg8UQTMhXNKMI/view" target="_blank" rel="noreferrer" className="text-muted border-b border-border pb-0.5 hover:text-text transition-colors">
+            <a href="https://drive.google.com/file/d/17vhsogk_DDxe4Jx1uIzZX9m30BVMXis0/view" target="_blank" rel="noreferrer" className="text-muted border-b border-border pb-0.5 hover:text-text transition-colors">
               Resume ↗
             </a>
           </motion.div>
