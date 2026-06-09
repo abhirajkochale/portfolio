@@ -60,12 +60,20 @@ export default function Hero() {
         </motion.div>
 
         <div className="w-full flex flex-col relative z-20 pointer-events-none">
+          {/* Mobile Portrait */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }}
+            className="lg:hidden w-24 h-24 mb-6 rounded-full overflow-hidden border border-border/50 shadow-sm pointer-events-auto"
+          >
+            <img src="/abhiraj.jpeg" alt="Abhiraj Kochale" className="w-full h-full object-cover object-[center_top] scale-[1.15]" />
+          </motion.div>
+
           {/* Re-enable pointer events for interactive children */}
           <motion.div className="flex flex-col origin-left pointer-events-auto" style={{ y: nameY, opacity: nameOpacity }}>
-            <motion.h1 custom={0} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(5rem,12vw,10rem)] leading-[0.9] text-text tracking-tight uppercase">
+            <motion.h1 custom={0} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(3.5rem,12vw,10rem)] leading-[0.9] text-text tracking-tight uppercase">
               {personal.name.first}
             </motion.h1>
-            <motion.h1 custom={1} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(5rem,12vw,10rem)] leading-[0.9] tracking-tight uppercase"
+            <motion.h1 custom={1} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(3.5rem,12vw,10rem)] leading-[0.9] tracking-tight uppercase"
               style={{
                 color: 'transparent',
                 WebkitTextStroke: '1.5px var(--text)'
@@ -93,14 +101,14 @@ export default function Hero() {
           </motion.div>
 
           {/* Stats Strip */}
-          <div className="flex flex-wrap items-center gap-y-4 pt-8 border-t border-border mt-8 w-full max-w-[600px] pointer-events-auto">
+          <div className="grid grid-cols-2 md:flex md:flex-wrap items-center gap-y-6 gap-x-4 md:gap-x-0 pt-8 border-t border-border mt-8 w-full max-w-[600px] pointer-events-auto">
             {personal.stats.map((stat, idx) => (
               <motion.div key={stat.label} custom={1 + (idx * 0.1)} variants={fadeUp} initial="hidden" animate="visible" className="flex items-center">
-                <div className="flex items-baseline gap-2">
-                  <span className="font-body font-bold text-[1.3rem] text-text">{stat.value}</span>
-                  <span className="font-mono font-normal text-[0.7rem] text-muted uppercase tracking-wider">{stat.label}</span>
+                <div className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-2">
+                  <span className="font-body font-bold text-[1.5rem] md:text-[1.3rem] text-text leading-none">{stat.value}</span>
+                  <span className="font-mono font-normal text-[0.65rem] md:text-[0.7rem] text-muted uppercase tracking-wider">{stat.label}</span>
                 </div>
-                {idx !== personal.stats.length - 1 && <span className="mx-4 md:mx-6 text-[1.3rem] text-border">·</span>}
+                {idx !== personal.stats.length - 1 && <span className="hidden md:inline mx-4 md:mx-6 text-[1.3rem] text-border">·</span>}
               </motion.div>
             ))}
           </div>

@@ -44,7 +44,7 @@ export default function Certifications() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 0.6, delay: 0.2 + (idx * 0.15) }}
-                className="rounded-[16px] p-8 relative overflow-hidden group"
+                className="rounded-[16px] p-6 md:p-8 relative overflow-hidden group"
                 style={{ border: `1px solid ${colors.border}` }}
               >
                 {/* 0.3 opacity background block to tint without affecting text */}

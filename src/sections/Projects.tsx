@@ -40,7 +40,7 @@ export default function Projects() {
               // SELECTED WORK
             </motion.p>
           </div>
-          <h2 className="font-body font-black text-[clamp(3.5rem,8vw,6rem)] leading-none text-text mb-2 flex flex-wrap gap-[0.2em] w-[110%]">
+          <h2 className="font-body font-black text-[clamp(3rem,8vw,6rem)] leading-none text-text mb-2 flex flex-wrap gap-[0.2em] w-[110%]">
             {titleWords.map((word, i) => (
               <span key={i} className="overflow-hidden inline-block">
                 <motion.span 
@@ -83,7 +83,7 @@ export default function Projects() {
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 relative z-10">
                   
                   {/* Left Column (55%) */}
-                  <div className="w-full lg:w-[55%] flex flex-col">
+                  <div className="w-full lg:w-[55%] flex flex-col order-2 lg:order-1">
                     <div className="flex items-center w-full">
                       <span className="font-mono text-[0.65rem] rounded-full px-3 py-1" style={{ backgroundColor: colors.badgeBg, color: colors.badgeText }}>
                         {project.badge}
@@ -133,20 +133,23 @@ export default function Projects() {
                   </div>
 
                   {/* Right Column (45%) */}
-                  <div className="w-full lg:w-[45%] h-full flex flex-col justify-center">
-                    <motion.div 
+                  <div className="w-full lg:w-[45%] h-full flex flex-col justify-center order-1 lg:order-2 mb-6 lg:mb-0">
+                    <motion.a 
+                      href={project.live || project.github || "#"}
+                      target="_blank"
+                      rel="noreferrer"
                       initial={{ opacity: 0, scale: 0.96 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true, margin: "-10%" }}
                       transition={{ duration: 0.9, delay: delay + 0.1 }}
-                      className="w-full rounded-[8px] flex items-center justify-center overflow-hidden relative shadow-sm border border-border/50"
+                      className="w-full rounded-[8px] flex items-center justify-center overflow-hidden relative shadow-sm border border-border/50 block cursor-pointer"
                     >
                       <img 
                         src={`/images/${project.id}.png`} 
                         alt={project.name} 
                         className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
                       />
-                    </motion.div>
+                    </motion.a>
                   </div>
 
                 </div>
