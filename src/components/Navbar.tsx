@@ -39,21 +39,21 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-[100] h-[64px] transition-all duration-400 ease-in-out border-b ${
-          isScrolled 
-            ? 'bg-bg/92 backdrop-blur-md border-border' 
+        className={`fixed top-0 left-0 w-full z-[100] h-[64px] transition-all duration-400 ease-in-out border-b ${isScrolled
+            ? 'bg-bg/92 backdrop-blur-md border-border'
             : 'bg-transparent border-transparent'
-        }`}
+          }`}
       >
         <div className="flex justify-between items-center h-full px-[clamp(1.5rem,5vw,3.5rem)]">
-          
+
           {/* LEFT: Logo */}
-          <a 
-            href="#" 
+          <a
+            href="#"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="font-body font-extrabold text-[1.2rem] text-text"
+            className="font-body font-extrabold text-[1.2rem] text-text group flex"
           >
-            AK
+            <span className="transition-transform duration-200 group-hover:-translate-x-[2px]">A</span>
+            <span className="transition-transform duration-200 group-hover:translate-x-[2px]">K</span>
           </a>
 
           {/* CENTER: Desktop Links */}
@@ -66,14 +66,13 @@ export default function Navbar() {
                   href={link.href}
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.5, 
-                    ease: "easeOut", 
-                    delay: 0.3 + (index * 0.06) 
+                  transition={{
+                    duration: 0.5,
+                    ease: "easeOut",
+                    delay: 0.3 + (index * 0.06)
                   }}
-                  className={`relative font-mono text-[0.72rem] tracking-[0.18em] uppercase py-1 transition-colors duration-200 ${
-                    isActive ? 'text-text font-bold' : 'text-muted hover:text-text'
-                  }`}
+                  className={`relative font-mono text-[0.72rem] tracking-[0.18em] uppercase py-1 transition-colors duration-200 ${isActive ? 'text-text font-bold' : 'text-muted hover:text-text'
+                    }`}
                 >
                   {link.name}
                   {isActive && (
@@ -88,19 +87,9 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* RIGHT: Availability Pill (Desktop) */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-            className="hidden md:flex items-center gap-2 border border-muted text-muted rounded-full px-[14px] py-[5px] whitespace-nowrap font-mono text-[0.68rem]"
-          >
-            <span className="w-2 h-2 rounded-full bg-muted animate-availability-pulse" />
-            Available
-          </motion.div>
 
           {/* RIGHT: Mobile Menu Toggle */}
-          <button 
+          <button
             className="md:hidden text-text"
             onClick={() => setIsMobileMenuOpen(true)}
           >
@@ -121,10 +110,11 @@ export default function Navbar() {
           >
             {/* Top Bar inside Menu */}
             <div className="flex justify-between items-center h-[64px] mb-12">
-              <span className="font-body font-extrabold text-[1.2rem] text-text">
-                AK
+              <span className="font-body font-extrabold text-[1.2rem] text-text group flex">
+                <span className="transition-transform duration-200 group-hover:-translate-x-[2px]">A</span>
+                <span className="transition-transform duration-200 group-hover:translate-x-[2px]">K</span>
               </span>
-              <button 
+              <button
                 className="text-muted hover:text-text transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >

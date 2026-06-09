@@ -12,7 +12,7 @@ export default function Certifications() {
   const isInView = useInView(sectionRef, { once: true, margin: "-10%" });
 
   return (
-    <section ref={sectionRef} id="certifications" className="w-full bg-bg py-16 md:py-24 border-b border-border">
+    <section ref={sectionRef} id="certifications" className="w-full bg-bg py-16 md:pt-16 md:pb-20 border-b border-border overflow-hidden">
       <motion.div 
         initial={{ opacity: 0, y: 50 }} 
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }} 
@@ -21,12 +21,18 @@ export default function Certifications() {
       >
         
         <div className="mb-12">
-          <motion.p 
-            initial={{ opacity: 0, x: -20 }} animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-mono text-[0.7rem] text-muted tracking-[0.2em] uppercase"
-          >
-            // CERTIFICATIONS
-          </motion.p>
+          <div className="flex items-center gap-2 mb-4">
+            <motion.div 
+              initial={{ width: 0 }} animate={isInView ? { width: 16 } : { width: 0 }} transition={{ duration: 0.4, delay: 0.1 }}
+              className="h-[1px] bg-muted"
+            />
+            <motion.p 
+              initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : { opacity: 0 }} transition={{ duration: 0.4, delay: 0.5 }}
+              className="font-mono text-[0.7rem] text-muted tracking-[0.2em] uppercase"
+            >
+              // CERTIFICATIONS
+            </motion.p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

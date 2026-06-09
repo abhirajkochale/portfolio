@@ -20,7 +20,7 @@ export default function Skills() {
   let globalSkillIndex = 0;
 
   return (
-    <section ref={sectionRef} id="skills" className="w-full bg-bg-alt py-16 md:py-24 border-b border-border">
+    <section ref={sectionRef} id="skills" className="w-full bg-bg-alt py-16 md:py-20 border-b border-border overflow-hidden">
       <motion.div 
         initial={{ opacity: 0, y: 50 }} 
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }} 
@@ -28,20 +28,26 @@ export default function Skills() {
         className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,3.5rem)]"
       >
         
-        <div className="mb-16">
-          <motion.p 
-            initial={{ opacity: 0, x: -20 }} animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-mono text-[0.7rem] text-muted tracking-[0.2em] mb-4 uppercase"
-          >
-            // CAPABILITIES
-          </motion.p>
-          <h2 className="font-body font-extrabold text-[clamp(2.5rem,5vw,4rem)] text-text mb-2 leading-tight flex flex-wrap gap-[0.3em]">
+        <div className="mb-12">
+          <div className="flex items-center gap-2 mb-4">
+            <motion.div 
+              initial={{ width: 0 }} animate={isInView ? { width: 16 } : { width: 0 }} transition={{ duration: 0.4, delay: 0.1 }}
+              className="h-[1px] bg-muted"
+            />
+            <motion.p 
+              initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : { opacity: 0 }} transition={{ duration: 0.4, delay: 0.5 }}
+              className="font-mono text-[0.7rem] text-muted tracking-[0.2em] uppercase"
+            >
+              // CAPABILITIES
+            </motion.p>
+          </div>
+          <h2 className="font-body font-black text-[clamp(3rem,6vw,5rem)] leading-none text-text mb-2 flex flex-wrap gap-[0.2em]">
             {titleWords.map((word, i) => (
               <span key={i} className="overflow-hidden inline-block">
                 <motion.span 
                   initial={{ clipPath: "inset(0 0 100% 0)" }}
                   animate={isInView ? { clipPath: "inset(0 0 0% 0)" } : { clipPath: "inset(0 0 100% 0)" }}
-                  transition={{ duration: 0.8, delay: i * 0.07 }}
+                  transition={{ duration: 0.75, delay: i * 0.08 }}
                   className="inline-block"
                 >
                   {word}
@@ -55,14 +61,14 @@ export default function Skills() {
           {Object.entries(skills).map(([category, items]) => (
             <div 
               key={category}
-              className="flex flex-col md:flex-row md:items-start py-6 md:py-8 border-b border-border last:border-0"
+              className="flex flex-col py-6 md:py-8 border-b border-border last:border-0 last:pb-0"
             >
-              <div className="w-[140px] shrink-0 mb-4 md:mb-0 mt-1">
+              <div className="mb-4">
                 <h3 className="font-mono text-[0.7rem] text-light uppercase tracking-wider">
                   {category}
                 </h3>
               </div>
-              <div className="flex flex-wrap gap-3 flex-1">
+              <div className="flex flex-wrap gap-3 w-full">
                 {items.map(skill => {
                   const color = pastelColors[globalSkillIndex % pastelColors.length];
                   const currentIdx = globalSkillIndex;
@@ -71,11 +77,12 @@ export default function Skills() {
                   return (
                     <motion.span 
                       key={skill}
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
-                      transition={{ duration: 0.4, delay: 0.2 + (currentIdx * 0.03) }}
+                      initial={{ opacity: 0, scale: 0.7 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20, delay: currentIdx * 0.025 }}
                       style={{ backgroundColor: color }}
-                      className="text-text font-mono text-[0.78rem] font-medium rounded-[6px] px-[14px] py-[6px] cursor-default transition-all duration-150 ease-in-out hover:opacity-75 hover:scale-105"
+                      className="text-text font-mono text-[0.78rem] font-medium rounded-[6px] px-[14px] py-[6px] cursor-default transition-transform duration-150 ease-in-out hover:opacity-75 hover:scale-105"
                     >
                       {skill}
                     </motion.span>

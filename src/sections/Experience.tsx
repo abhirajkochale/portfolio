@@ -21,7 +21,7 @@ export default function Experience() {
   const titleWords = "Where I've Worked".split(" ");
 
   return (
-    <section ref={sectionRef} id="experience" className="w-full bg-bg py-16 md:py-24 border-b border-border">
+    <section ref={sectionRef} id="experience" className="w-full bg-bg py-16 md:py-20 border-b border-border overflow-hidden">
       <motion.div 
         initial={{ opacity: 0, y: 50 }} 
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }} 
@@ -30,19 +30,25 @@ export default function Experience() {
       >
         
         <div className="mb-16">
-          <motion.p 
-            initial={{ opacity: 0, x: -20 }} animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-mono text-[0.7rem] text-muted tracking-[0.2em] mb-4 uppercase"
-          >
-            // EXPERIENCE
-          </motion.p>
-          <h2 className="font-body font-extrabold text-[clamp(2.5rem,5vw,4rem)] text-text mb-2 leading-tight flex flex-wrap gap-[0.3em]">
+          <div className="flex items-center gap-2 mb-4">
+            <motion.div 
+              initial={{ width: 0 }} animate={isInView ? { width: 16 } : { width: 0 }} transition={{ duration: 0.4, delay: 0.1 }}
+              className="h-[1px] bg-muted"
+            />
+            <motion.p 
+              initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : { opacity: 0 }} transition={{ duration: 0.4, delay: 0.5 }}
+              className="font-mono text-[0.7rem] text-muted tracking-[0.2em] uppercase"
+            >
+              // EXPERIENCE
+            </motion.p>
+          </div>
+          <h2 className="font-body font-black text-[clamp(3.5rem,8vw,6rem)] leading-none text-text mb-2 flex flex-wrap gap-[0.2em] w-[110%]">
             {titleWords.map((word, i) => (
               <span key={i} className="overflow-hidden inline-block">
                 <motion.span 
                   initial={{ clipPath: "inset(0 0 100% 0)" }}
                   animate={isInView ? { clipPath: "inset(0 0 0% 0)" } : { clipPath: "inset(0 0 100% 0)" }}
-                  transition={{ duration: 0.8, delay: i * 0.07 }}
+                  transition={{ duration: 0.75, delay: i * 0.08 }}
                   className="inline-block"
                 >
                   {word}
@@ -72,14 +78,14 @@ export default function Experience() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="relative py-8 border-b border-border last:border-0"
+                className="relative pt-6 pb-6 border-b border-border last:border-0"
               >
                 {/* Wayspire Highlight Container */}
                 <div className={`transition-all duration-300 ${isWayspire ? 'border-l-[3px] border-pastel-purple pl-[1rem] -ml-[1rem]' : ''}`}>
                   
                   {/* Dot */}
                   <div 
-                    className={`absolute ${isWayspire ? 'left-[calc(-1rem-13px)] md:left-[calc(-2rem-13px)]' : 'left-[-21px] md:left-[-37px]'} top-[40px] w-[10px] h-[10px] rounded-full bg-text z-10`}
+                    className={`absolute ${isWayspire ? 'left-[calc(-1rem-13px)] md:left-[calc(-2rem-13px)]' : 'left-[-21px] md:left-[-37px]'} top-[30px] w-[10px] h-[10px] rounded-full bg-text z-10`}
                     style={{ boxShadow: '0 0 0 4px var(--bg), 0 0 0 5px var(--border)' }} 
                   />
                   
@@ -97,7 +103,7 @@ export default function Experience() {
                     </div>
                   </div>
 
-                  <ul className="flex flex-col gap-3 mt-6">
+                  <ul className="flex flex-col gap-3 mt-4">
                     {exp.points.map((point, j) => (
                       <li key={j} className="flex items-start gap-3">
                         <span className="text-muted mt-[2px]">→</span>

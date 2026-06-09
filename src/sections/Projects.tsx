@@ -3,9 +3,9 @@ import { projects } from '../data';
 import { useRef } from 'react';
 
 const cardColors = [
-  { border: 'var(--color-pastel-purple)', badgeBg: 'var(--color-pastel-purple)', badgeText: '#4C1D95', grad: 'linear-gradient(135deg, var(--color-pastel-purple), var(--color-pastel-blue))' },
-  { border: 'var(--color-pastel-blue)', badgeBg: 'var(--color-pastel-blue)', badgeText: '#1E3A5F', grad: 'linear-gradient(135deg, var(--color-pastel-blue), var(--color-pastel-green))' },
-  { border: 'var(--color-pastel-green)', badgeBg: 'var(--color-pastel-green)', badgeText: '#1C4A2E', grad: 'linear-gradient(135deg, var(--color-pastel-green), var(--color-pastel-yellow))' }
+  { border: 'var(--color-pastel-purple)', badgeBg: 'var(--color-pastel-purple)', badgeText: '#4C1D95' },
+  { border: 'var(--color-pastel-blue)', badgeBg: 'var(--color-pastel-blue)', badgeText: '#1E3A5F' },
+  { border: 'var(--color-pastel-green)', badgeBg: 'var(--color-pastel-green)', badgeText: '#1C4A2E' }
 ];
 
 export default function Projects() {
@@ -18,7 +18,7 @@ export default function Projects() {
   const titleWords = "Things I've Built".split(" ");
 
   return (
-    <section ref={sectionRef} id="work" className="w-full bg-bg-alt py-16 md:py-24 flex flex-col border-y border-border">
+    <section ref={sectionRef} id="work" className="w-full bg-bg-alt py-16 md:py-20 flex flex-col border-y border-border overflow-hidden">
       <motion.div 
         initial={{ opacity: 0, y: 50 }} 
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }} 
@@ -28,19 +28,25 @@ export default function Projects() {
         
         {/* Section Header */}
         <div className="mb-16">
-          <motion.p 
-            initial={{ opacity: 0, x: -20 }} animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-mono text-[0.7rem] text-muted tracking-[0.2em] mb-4"
-          >
-            // SELECTED WORK
-          </motion.p>
-          <h2 className="font-body font-extrabold text-[clamp(2.5rem,5vw,4rem)] text-text mb-2 leading-tight flex flex-wrap gap-[0.3em]">
+          <div className="flex items-center gap-2 mb-4">
+            <motion.div 
+              initial={{ width: 0 }} animate={isInView ? { width: 16 } : { width: 0 }} transition={{ duration: 0.4, delay: 0.1 }}
+              className="h-[1px] bg-muted"
+            />
+            <motion.p 
+              initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : { opacity: 0 }} transition={{ duration: 0.4, delay: 0.5 }}
+              className="font-mono text-[0.7rem] text-muted tracking-[0.2em] uppercase"
+            >
+              // SELECTED WORK
+            </motion.p>
+          </div>
+          <h2 className="font-body font-black text-[clamp(3.5rem,8vw,6rem)] leading-none text-text mb-2 flex flex-wrap gap-[0.2em] w-[110%]">
             {titleWords.map((word, i) => (
               <span key={i} className="overflow-hidden inline-block">
                 <motion.span 
                   initial={{ clipPath: "inset(0 0 100% 0)" }}
                   animate={isInView ? { clipPath: "inset(0 0 0% 0)" } : { clipPath: "inset(0 0 100% 0)" }}
-                  transition={{ duration: 0.8, delay: i * 0.07 }}
+                  transition={{ duration: 0.75, delay: i * 0.08 }}
                   className="inline-block"
                 >
                   {word}
@@ -48,7 +54,7 @@ export default function Projects() {
               </span>
             ))}
           </h2>
-          <p className="font-mono text-[0.85rem] text-light">
+          <p className="font-mono text-[0.85rem] text-light mt-4">
             Real products. Real users. Real impact.
           </p>
         </div>
@@ -57,16 +63,16 @@ export default function Projects() {
         <div className="flex flex-col">
           {featuredProjects.map((project, index) => {
             const colors = cardColors[index % cardColors.length];
-            const delays = [0, 0.15, 0.25];
-            const delay = delays[index] ?? (index * 0.1);
+            const delays = [0, 0.2, 0.4];
+            const delay = delays[index] ?? (index * 0.2);
 
             return (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 60 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
-                transition={{ duration: 0.8, delay }}
-                className="group relative bg-bg-card border border-border rounded-[16px] p-6 md:p-10 mb-6 transition-all duration-300 ease-out hover:-translate-y-1"
+                initial={{ opacity: 0, x: 30 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+                transition={{ duration: 0.7, delay }}
+                className="group relative bg-bg-card border border-border rounded-[16px] p-[32px] mb-6 transition-all duration-300 ease-out hover:-translate-y-1"
                 style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.10)'}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'}
@@ -87,10 +93,10 @@ export default function Projects() {
                       </span>
                     </div>
 
-                    <h3 className="font-body font-extrabold text-[clamp(1.8rem,3vw,2.5rem)] text-text mt-4">
+                    <h3 className="font-body font-extrabold text-[clamp(2rem,3.5vw,2.8rem)] text-text mt-4 leading-tight">
                       {project.name}
                     </h3>
-                    <p className="font-body font-medium text-[1rem] text-muted mt-2">
+                    <p className="font-body font-medium text-[1.05rem] text-muted mt-2">
                       {project.tagline}
                     </p>
 
@@ -99,8 +105,8 @@ export default function Projects() {
                     </p>
 
                     <div className="mt-6 pt-6 border-t border-border">
-                      <p className="font-mono text-[0.75rem] text-[#1C6B3A]">
-                        {project.impact}
+                      <p className="font-mono text-[0.85rem] text-muted flex items-center gap-2">
+                        <span className="text-[#22c55e]">●</span> {project.impact}
                       </p>
                     </div>
 
@@ -112,7 +118,7 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    <div className="flex items-center gap-6 mt-6">
+                    <div className="flex items-center gap-6 mt-8">
                       {project.live && (
                         <a href={project.live} target="_blank" rel="noreferrer" className="text-text font-mono text-[0.8rem] border-b border-text pb-0.5 hover:text-muted transition-colors">
                           Live Demo ↗
@@ -128,11 +134,19 @@ export default function Projects() {
 
                   {/* Right Column (45%) */}
                   <div className="w-full lg:w-[45%] h-full flex flex-col justify-center">
-                    <div className="w-full aspect-[16/10] rounded-[8px] border border-border flex items-center justify-center overflow-hidden" style={{ background: colors.grad, opacity: 0.6 }}>
-                      <span className="font-mono font-bold text-4xl text-muted opacity-40 text-center px-4 select-none">
-                        {project.name}
-                      </span>
-                    </div>
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.96 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-10%" }}
+                      transition={{ duration: 0.9, delay: delay + 0.1 }}
+                      className="w-full rounded-[8px] flex items-center justify-center overflow-hidden relative shadow-sm border border-border/50"
+                    >
+                      <img 
+                        src={`/images/${project.id}.png`} 
+                        alt={project.name} 
+                        className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </motion.div>
                   </div>
 
                 </div>
