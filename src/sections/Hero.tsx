@@ -60,27 +60,31 @@ export default function Hero() {
         </motion.div>
 
         <div className="w-full flex flex-col relative z-20 pointer-events-none">
-          {/* Mobile Portrait */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }}
-            className="lg:hidden w-24 h-24 mb-6 rounded-full overflow-hidden border border-border/50 shadow-sm pointer-events-auto"
-          >
-            <img src="/abhiraj.jpeg" alt="Abhiraj Kochale" className="w-full h-full object-cover object-[center_top] scale-[1.15]" />
-          </motion.div>
-
           {/* Re-enable pointer events for interactive children */}
-          <motion.div className="flex flex-col origin-left pointer-events-auto" style={{ y: nameY, opacity: nameOpacity }}>
-            <motion.h1 custom={0} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(3.5rem,12vw,10rem)] leading-[0.9] text-text tracking-tight uppercase">
-              {personal.name.first}
-            </motion.h1>
-            <motion.h1 custom={1} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(3.5rem,12vw,10rem)] leading-[0.9] tracking-tight uppercase"
-              style={{
-                color: 'transparent',
-                WebkitTextStroke: '1.5px var(--text)'
-              }}
+          <motion.div className="flex flex-row items-center gap-4 sm:gap-6 origin-left pointer-events-auto" style={{ y: nameY, opacity: nameOpacity }}>
+            
+            {/* Mobile Portrait Inline */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }}
+              className="lg:hidden w-[100px] h-[100px] sm:w-[130px] sm:h-[130px] rounded-full overflow-hidden border border-border/50 shadow-sm pointer-events-auto flex-shrink-0"
             >
-              {personal.name.last}
-            </motion.h1>
+              <img src="/abhiraj.jpeg" alt="Abhiraj Kochale" className="w-full h-full object-cover object-[center_top] scale-[1.15]" />
+            </motion.div>
+
+            <div className="flex flex-col">
+              <motion.h1 custom={0} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(2.8rem,9vw,10rem)] md:text-[clamp(4rem,10vw,10rem)] lg:text-[clamp(5rem,12vw,10rem)] leading-[0.9] text-text tracking-tight uppercase">
+                {personal.name.first}
+              </motion.h1>
+              <motion.h1 custom={1} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(2.8rem,9vw,10rem)] md:text-[clamp(4rem,10vw,10rem)] lg:text-[clamp(5rem,12vw,10rem)] leading-[0.9] tracking-tight uppercase"
+                style={{
+                  color: 'transparent',
+                  WebkitTextStroke: '1.5px var(--text)'
+                }}
+              >
+                {personal.name.last}
+              </motion.h1>
+            </div>
+            
           </motion.div>
 
           <motion.p custom={0.6} variants={fadeUp} initial="hidden" animate="visible" className="font-body font-medium text-[1.1rem] text-muted mt-6 max-w-[500px] pointer-events-auto">

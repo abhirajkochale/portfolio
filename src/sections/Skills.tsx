@@ -41,12 +41,12 @@ export default function Skills() {
               // CAPABILITIES
             </motion.p>
           </div>
-          <h2 className="font-body font-black text-[clamp(3rem,6vw,5rem)] leading-none text-text mb-2 flex flex-wrap gap-[0.2em]">
+          <h2 className="font-body font-black text-[clamp(3rem,6vw,5rem)] leading-[1.1] text-text mb-2 flex flex-wrap gap-[0.2em]">
             {titleWords.map((word, i) => (
-              <span key={i} className="overflow-hidden inline-block">
+              <span key={i} className="overflow-hidden inline-block pb-[0.2em] -mb-[0.2em]">
                 <motion.span 
                   initial={{ clipPath: "inset(0 0 100% 0)" }}
-                  animate={isInView ? { clipPath: "inset(0 0 0% 0)" } : { clipPath: "inset(0 0 100% 0)" }}
+                  animate={isInView ? { clipPath: "inset(-20% 0 -20% 0)" } : { clipPath: "inset(0 0 100% 0)" }}
                   transition={{ duration: 0.75, delay: i * 0.08 }}
                   className="inline-block"
                 >

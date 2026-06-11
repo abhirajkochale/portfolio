@@ -17,7 +17,7 @@ export const personal = {
   },
   stats: [
     { value: "8.70", label: "CGPA" },
-    { value: "150+", label: "Active Users" },
+    { value: "200+", label: "Active Users" },
     { value: "1",    label: "Internship" },
     { value: "4+",   label: "Projects" }
   ]
@@ -28,15 +28,23 @@ export const projects = [
     id: "parent-portal",
     index: "01",
     name: "Parent Portal",
-    tagline: "Production software. 150+ real users.",
-    description: "Preschool management portal with JWT auth and role-based access control for parents and admins. Live in production with 150+ active users and real-time student updates via Supabase.",
+    tagline: "Production software. 200+ real users.",
+    description: "Preschool management portal with JWT auth and role-based access control for parents and admins. Live in production with 200+ active users and real-time student updates via Supabase.",
     stack: ["React","TypeScript","Supabase","PostgreSQL","RBAC"],
     year: "2025",
     badge: "🏆 Flagship",
-    impact: "150+ Active Users · Live in Production",
+    impact: "200+ Active Users · Live in Production",
     live: "https://awesomekids-parents-portal.vercel.app/",
     github: null,
-    featured: true
+    featured: true,
+    images: [
+      "/images/Parent portal/parent-portal.png",
+      "/images/Parent portal/Admin dashboard (3).png",
+      "/images/Parent portal/Parent Dashboard (2).png",
+      "/images/Parent portal/Admission form.png",
+      "/images/Parent portal/Manage Admissions.png",
+      "/images/Parent portal/Help and support.png"
+    ]
   },
   {
     id: "expenzo",
@@ -50,12 +58,19 @@ export const projects = [
     impact: "Conversational AI · Real-time Insights",
     live: "https://expenzo-kappa.vercel.app/",
     github: "https://github.com/abhirajkochale/Expenzo",
-    featured: true
+    featured: true,
+    images: [
+      "/images/Expenzo/1.png",
+      "/images/Expenzo/2.png",
+      "/images/Expenzo/3.png",
+      "/images/Expenzo/4.png",
+      "/images/Expenzo/5.png"
+    ]
   },
   {
     id: "awesome-kids",
     index: "03",
-    name: "Awesome Kids",
+    name: "Preschool Website",
     tagline: "Official website for a real institution.",
     description: "Responsive database-backed website for Awesome Kids International Preschool supporting digital admissions outreach.",
     stack: ["React","TypeScript","Supabase"],
@@ -64,21 +79,35 @@ export const projects = [
     impact: "Real Business · Production Deployed",
     live: "https://awesome-kids.vercel.app/",
     github: null,
-    featured: true
+    featured: true,
+    images: [
+      "/images/Awesome Kids/1.png",
+      "/images/Awesome Kids/2.png",
+      "/images/Awesome Kids/3.png",
+      "/images/Awesome Kids/4.png",
+      "/images/Awesome Kids/5.png",
+      "/images/Awesome Kids/6.png"
+    ]
   },
   {
-    id: "resume-screening",
+    id: "subtract",
     index: "04",
-    name: "Resume Screener",
-    tagline: "ML pipeline for automated resume ranking.",
-    description: "TF-IDF vectorization and Logistic Regression pipeline with NLP preprocessing, tokenization, and stopword removal.",
-    stack: ["Python","Scikit-learn","NLP","TF-IDF"],
-    year: "2025",
-    badge: "⚙ ML",
-    impact: "NLP Pipeline · Open Source",
+    name: "SubTract",
+    tagline: "The Mint for AI tool spend.",
+    description: "B2B financial auditing tool for startup founders. Identifies wasted budget on duplicate AI subscriptions and generates personalized CFO summaries using Gemini AI.",
+    stack: ["Next.js 15", "Supabase", "Gemini API", "Resend SDK", "Vitest"],
+    year: "2026",
+    badge: "🚀 B2B SaaS",
+    impact: "Lead-Gen · Cost Optimization",
     live: null,
-    github: "https://github.com/abhirajkochale/Resume-Screening-Tool",
-    featured: false
+    github: null,
+    featured: true,
+    images: [
+      "/images/SubTract/1.png",
+      "/images/SubTract/2.png",
+      "/images/SubTract/3.png",
+      "/images/SubTract/4.png"
+    ]
   }
 ];
 
