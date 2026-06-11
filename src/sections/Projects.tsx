@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { projects } from '../data';
 import { useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -20,21 +20,21 @@ export default function Projects() {
 
   return (
     <section ref={sectionRef} id="work" className="w-full bg-bg-alt py-16 md:py-20 flex flex-col border-y border-border overflow-hidden">
-      <motion.div 
-        initial={{ opacity: 0, y: 50 }} 
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }} 
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
         className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,3.5rem)]"
       >
-        
+
         {/* Section Header */}
         <div className="mb-16">
           <div className="flex items-center gap-2 mb-4">
-            <motion.div 
+            <motion.div
               initial={{ width: 0 }} animate={isInView ? { width: 16 } : { width: 0 }} transition={{ duration: 0.4, delay: 0.1 }}
               className="h-[1px] bg-muted"
             />
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : { opacity: 0 }} transition={{ duration: 0.4, delay: 0.5 }}
               className="font-mono text-[0.7rem] text-muted tracking-[0.2em] uppercase"
             >
@@ -44,7 +44,7 @@ export default function Projects() {
           <h2 className="font-body font-black text-[clamp(3rem,8vw,6rem)] leading-[1.1] text-text mb-2 flex flex-wrap gap-[0.2em] w-[110%]">
             {titleWords.map((word, i) => (
               <span key={i} className="overflow-hidden inline-block pb-[0.2em] -mb-[0.2em]">
-                <motion.span 
+                <motion.span
                   initial={{ clipPath: "inset(0 0 100% 0)" }}
                   animate={isInView ? { clipPath: "inset(-20% 0 -20% 0)" } : { clipPath: "inset(0 0 100% 0)" }}
                   transition={{ duration: 0.75, delay: i * 0.08 }}
@@ -68,12 +68,12 @@ export default function Projects() {
             const delay = delays[index] ?? (index * 0.2);
 
             return (
-              <FeaturedProjectCard 
-                key={project.id} 
-                project={project} 
-                colors={colors} 
-                delay={delay} 
-                isInView={isInView} 
+              <FeaturedProjectCard
+                key={project.id}
+                project={project}
+                colors={colors}
+                delay={delay}
+                isInView={isInView}
               />
             );
           })}
@@ -81,9 +81,7 @@ export default function Projects() {
 
         {/* Secondary Projects */}
         <div className="mt-16">
-          <p className="font-mono text-[0.7rem] text-muted mb-8 tracking-[0.1em]">
-            // OTHER WORK
-          </p>
+
           <div className="flex flex-col">
             {otherProjects.map((project) => (
               <a
@@ -118,34 +116,63 @@ export default function Projects() {
 function FeaturedProjectCard({ project, colors, delay, isInView }: { project: any, colors: any, delay: number, isInView: boolean }) {
   const images = project.images || [`/images/${project.id}.png`];
   const [currentImage, setCurrentImage] = useState(0);
+  const [direction, setDirection] = useState(0);
 
-  const nextImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImage((prev) => (prev + 1) % images.length);
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
   };
 
-  const prevImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+  const swipeConfidenceThreshold = 10000;
+  const swipePower = (offset: number, velocity: number) => {
+    return Math.abs(offset) * velocity;
+  };
+
+  const paginate = (newDirection: number) => {
+    setDirection(newDirection);
+    setCurrentImage((prev) => (prev + newDirection + images.length) % images.length);
+  };
+
+  const nextImage = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    paginate(1);
+  };
+
+  const prevImage = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    paginate(-1);
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 30 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-      transition={{ duration: 0.7, delay }}
-      className="group relative bg-bg-card border border-border rounded-[16px] p-[32px] mb-6 transition-all duration-300 ease-out hover:-translate-y-1"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-5%" }}
+      transition={{ duration: 0.8 }}
+      className="group relative bg-bg-card border border-border rounded-[16px] p-6 lg:p-[32px] mb-6 transition-all duration-300 ease-out hover:-translate-y-1 overflow-hidden lg:overflow-visible"
       style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
       onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.10)'}
       onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'}
     >
       {/* Left Border Hover Flash */}
-      <div className="absolute inset-y-0 left-0 w-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-l-[16px]" style={{ backgroundColor: colors.border }} />
+      <div className="absolute inset-y-0 left-0 w-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-l-[16px] hidden lg:block" style={{ backgroundColor: colors.border }} />
 
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 relative z-10">
-        
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 relative z-10">
+
         {/* Left Column (40%) */}
         <div className="w-full lg:w-[40%] flex flex-col order-2 lg:order-1">
           <div className="flex items-center w-full">
@@ -197,57 +224,97 @@ function FeaturedProjectCard({ project, colors, delay, isInView }: { project: an
         </div>
 
         {/* Right Column (60%) - Carousel */}
-        <div className="w-full lg:w-[60%] flex flex-col justify-center self-center order-1 lg:order-2 mb-6 lg:mb-0">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.9, delay: delay + 0.1 }}
-            className="w-full rounded-[8px] flex items-center justify-center overflow-hidden relative shadow-sm border border-border/50 block group/carousel"
+        <div className="w-full lg:w-[60%] flex flex-col justify-center self-center order-1 lg:order-2 mb-2 lg:mb-0">
+          <div
+            className="w-[calc(100%+48px)] lg:w-full -mx-6 lg:mx-0 rounded-none lg:rounded-[8px] flex flex-col items-center justify-center overflow-hidden relative shadow-sm border-y lg:border border-border/50 block group/carousel bg-bg-alt"
           >
-            <a 
+            <a
               href={project.live || project.github || "#"}
               target="_blank"
               rel="noreferrer"
-              className="block w-full cursor-pointer"
+              className="block w-full cursor-pointer relative overflow-hidden bg-bg"
             >
-              <img 
-                src={images[currentImage]} 
-                alt={project.name} 
-                className="w-full h-auto block transition-transform duration-700"
-              />
+              {/* Invisible image to dictate the natural height of the container */}
+              <img src={images[currentImage]} alt="" className="w-full h-auto invisible" aria-hidden="true" />
+
+              <AnimatePresence initial={false} custom={direction}>
+                <motion.div
+                  key={currentImage}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.2 }
+                  }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={1}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    const swipe = swipePower(offset.x, velocity.x);
+
+                    if (swipe < -swipeConfidenceThreshold) {
+                      paginate(1);
+                    } else if (swipe > swipeConfidenceThreshold) {
+                      paginate(-1);
+                    }
+                  }}
+                  className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center overflow-hidden"
+                >
+                  <img
+                    src={images[currentImage]}
+                    alt={project.name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </motion.div>
+              </AnimatePresence>
             </a>
 
             {images.length > 1 && (
               <>
-                {/* Left Arrow */}
-                <button 
+                {/* Left Arrow (Desktop Overlay) */}
+                <button
                   onClick={prevImage}
-                  className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-bg/80 hover:bg-bg backdrop-blur-sm text-text p-1.5 md:p-2 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 shadow-sm z-10"
+                  className="hidden lg:block absolute left-4 top-1/2 -translate-y-1/2 bg-bg/80 hover:bg-bg backdrop-blur-sm text-text p-2 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 shadow-sm z-10"
                 >
                   <ChevronLeft size={20} />
                 </button>
-                {/* Right Arrow */}
-                <button 
+                {/* Right Arrow (Desktop Overlay) */}
+                <button
                   onClick={nextImage}
-                  className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-bg/80 hover:bg-bg backdrop-blur-sm text-text p-1.5 md:p-2 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 shadow-sm z-10"
+                  className="hidden lg:block absolute right-4 top-1/2 -translate-y-1/2 bg-bg/80 hover:bg-bg backdrop-blur-sm text-text p-2 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 shadow-sm z-10"
                 >
                   <ChevronRight size={20} />
                 </button>
 
-                {/* Dots Indicator */}
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 bg-bg/50 backdrop-blur-sm px-2 py-1 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 z-10">
+                {/* Dots Indicator (Desktop Overlay) */}
+                <div className="hidden lg:flex absolute bottom-3 left-1/2 -translate-x-1/2 gap-1.5 bg-bg/50 backdrop-blur-sm px-2 py-1 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 z-10">
                   {images.map((_: any, i: number) => (
-                    <button 
+                    <button
                       key={i}
-                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrentImage(i); }}
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setDirection(i > currentImage ? 1 : -1); setCurrentImage(i); }}
                       className={`w-1.5 h-1.5 rounded-full transition-colors ${i === currentImage ? 'bg-text' : 'bg-text/30'}`}
                     />
                   ))}
                 </div>
               </>
             )}
-          </motion.div>
+          </div>
+
+          {/* Mobile Dots Indicator (Instagram style) */}
+          {images.length > 1 && (
+            <div className="flex lg:hidden justify-center items-center gap-1.5 mt-4">
+              {images.map((_: any, i: number) => (
+                <button
+                  key={i}
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setDirection(i > currentImage ? 1 : -1); setCurrentImage(i); }}
+                  className={`rounded-full transition-all duration-300 ${i === currentImage ? 'w-2 h-2 bg-text' : 'w-1.5 h-1.5 bg-border hover:bg-text/50'}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
       </div>

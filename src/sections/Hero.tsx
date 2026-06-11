@@ -13,9 +13,9 @@ export default function Hero() {
   const easeReveal: [number, number, number, number] = [0.76, 0, 0.24, 1];
 
   const maskReveal = {
-    hidden: { clipPath: "inset(0 0 100% 0)" },
+    hidden: { clipPath: "inset(-20% -20% 100% -20%)" },
     visible: (custom: number) => ({
-      clipPath: "inset(0 0 0% 0)",
+      clipPath: "inset(-20% -20% -20% -20%)",
       transition: { duration: 1.2, ease: easeReveal, delay: custom * 0.15 }
     })
   };
