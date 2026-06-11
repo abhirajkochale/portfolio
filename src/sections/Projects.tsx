@@ -228,10 +228,10 @@ function FeaturedProjectCard({ project, colors }: { project: any, colors: any })
               href={project.live || project.github || "#"}
               target="_blank"
               rel="noreferrer"
-              className="block w-full cursor-pointer relative overflow-hidden bg-bg"
+              className="block w-full cursor-pointer relative overflow-hidden bg-bg min-h-[250px] sm:min-h-[300px] md:min-h-[400px]"
             >
               {/* Invisible image to dictate the natural height of the container */}
-              <img src={images[currentImage]} alt="" className="w-full h-auto invisible" aria-hidden="true" />
+              <img src={images[currentImage]} alt="" className="w-full h-auto invisible pointer-events-none" aria-hidden="true" draggable="false" />
 
               <AnimatePresence initial={false} custom={direction}>
                 <motion.div
@@ -247,22 +247,23 @@ function FeaturedProjectCard({ project, colors }: { project: any, colors: any })
                   }}
                   drag="x"
                   dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={1}
+                  dragElastic={0.2}
                   onDragEnd={(_, { offset, velocity }) => {
-                    const swipe = swipePower(offset.x, velocity.x);
+                    const swipeDistance = offset.x;
 
-                    if (swipe < -swipeConfidenceThreshold) {
+                    if (swipeDistance < -40 || (velocity.x < -200 && swipeDistance < -10)) {
                       paginate(1);
-                    } else if (swipe > swipeConfidenceThreshold) {
+                    } else if (swipeDistance > 40 || (velocity.x > 200 && swipeDistance > 10)) {
                       paginate(-1);
                     }
                   }}
-                  className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center overflow-hidden"
+                  className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center overflow-hidden touch-pan-y"
                 >
                   <img
                     src={images[currentImage]}
                     alt={project.name}
                     className="absolute inset-0 w-full h-full object-cover"
+                    draggable="false"
                   />
                 </motion.div>
               </AnimatePresence>
