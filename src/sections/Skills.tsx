@@ -57,40 +57,82 @@ export default function Skills() {
           </h2>
         </div>
 
-        <div className="flex flex-col border-t border-border mt-8">
-          {Object.entries(skills).map(([category, items]) => (
-            <div 
-              key={category}
-              className="flex flex-col py-6 md:py-8 border-b border-border last:border-0 last:pb-0"
-            >
-              <div className="mb-4">
-                <h3 className="font-mono text-[0.7rem] text-light uppercase tracking-wider">
-                  {category}
-                </h3>
-              </div>
-              <div className="flex flex-wrap gap-3 w-full">
-                {items.map(skill => {
-                  const color = pastelColors[globalSkillIndex % pastelColors.length];
-                  const currentIdx = globalSkillIndex;
-                  globalSkillIndex++;
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-10">
+          
+          {/* Left Column */}
+          <div className="flex flex-col gap-6 md:gap-8">
+            {['Languages', 'Frontend', 'Tools'].map((category) => (
+              <div 
+                key={category}
+                className="flex flex-col bg-bg border border-border rounded-[12px] p-6 shadow-sm"
+              >
+                <div className="mb-4">
+                  <h3 className="font-mono text-[0.7rem] text-light uppercase tracking-wider">
+                    {category}
+                  </h3>
+                </div>
+                <div className="flex flex-wrap gap-3 w-full">
+                  {skills[category as keyof typeof skills].map(skill => {
+                    const color = pastelColors[globalSkillIndex % pastelColors.length];
+                    const currentIdx = globalSkillIndex;
+                    globalSkillIndex++;
 
-                  return (
-                    <motion.span 
-                      key={skill}
-                      initial={{ opacity: 0, scale: 0.7 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20, delay: currentIdx * 0.025 }}
-                      style={{ backgroundColor: color }}
-                      className="text-text font-mono text-[0.78rem] font-medium rounded-[6px] px-[14px] py-[6px] cursor-default transition-transform duration-150 ease-in-out hover:opacity-75 hover:scale-105"
-                    >
-                      {skill}
-                    </motion.span>
-                  );
-                })}
+                    return (
+                      <motion.span 
+                        key={skill}
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20, delay: currentIdx * 0.025 }}
+                        style={{ backgroundColor: color }}
+                        className="text-text font-mono text-[0.78rem] font-medium rounded-[6px] px-[14px] py-[6px] cursor-default transition-transform duration-150 ease-in-out hover:opacity-75 hover:scale-105"
+                      >
+                        {skill}
+                      </motion.span>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Right Column */}
+          <div className="flex flex-col gap-6 md:gap-8">
+            {['Backend', 'AI / ML'].map((category) => (
+              <div 
+                key={category}
+                className="flex flex-col bg-bg border border-border rounded-[12px] p-6 shadow-sm"
+              >
+                <div className="mb-4">
+                  <h3 className="font-mono text-[0.7rem] text-light uppercase tracking-wider">
+                    {category}
+                  </h3>
+                </div>
+                <div className="flex flex-wrap gap-3 w-full">
+                  {skills[category as keyof typeof skills].map(skill => {
+                    const color = pastelColors[globalSkillIndex % pastelColors.length];
+                    const currentIdx = globalSkillIndex;
+                    globalSkillIndex++;
+
+                    return (
+                      <motion.span 
+                        key={skill}
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20, delay: currentIdx * 0.025 }}
+                        style={{ backgroundColor: color }}
+                        className="text-text font-mono text-[0.78rem] font-medium rounded-[6px] px-[14px] py-[6px] cursor-default transition-transform duration-150 ease-in-out hover:opacity-75 hover:scale-105"
+                      >
+                        {skill}
+                      </motion.span>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </motion.div>
     </section>

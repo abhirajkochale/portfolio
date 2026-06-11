@@ -144,7 +144,7 @@ export const experience = [
 
 export const skills = {
   "Languages":   ["Python", "Java", "JavaScript", "TypeScript"],
-  "Frontend":    ["React", "HTML5", "CSS3", "Tailwind CSS"],
+  "Frontend":    ["React", "Next.js", "HTML5", "CSS3", "Tailwind CSS"],
   "Backend":     ["Supabase", "PostgreSQL", "SQL", "REST APIs"],
   "AI / ML":     ["Gemini API", "OpenAI API", "Scikit-learn", "TensorFlow", "OpenCV", "NLP"],
   "Tools":       ["Git", "GitHub", "VS Code", "Vercel"]
