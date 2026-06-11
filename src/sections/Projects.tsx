@@ -64,16 +64,12 @@ export default function Projects() {
         <div className="flex flex-col">
           {featuredProjects.map((project, index) => {
             const colors = cardColors[index % cardColors.length];
-            const delays = [0, 0.2, 0.4];
-            const delay = delays[index] ?? (index * 0.2);
 
             return (
               <FeaturedProjectCard
                 key={project.id}
                 project={project}
                 colors={colors}
-                delay={delay}
-                isInView={isInView}
               />
             );
           })}
@@ -113,7 +109,7 @@ export default function Projects() {
   );
 }
 
-function FeaturedProjectCard({ project, colors, delay, isInView }: { project: any, colors: any, delay: number, isInView: boolean }) {
+function FeaturedProjectCard({ project, colors }: { project: any, colors: any }) {
   const images = project.images || [`/images/${project.id}.png`];
   const [currentImage, setCurrentImage] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -252,7 +248,7 @@ function FeaturedProjectCard({ project, colors, delay, isInView }: { project: an
                   drag="x"
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={1}
-                  onDragEnd={(e, { offset, velocity }) => {
+                  onDragEnd={(_, { offset, velocity }) => {
                     const swipe = swipePower(offset.x, velocity.x);
 
                     if (swipe < -swipeConfidenceThreshold) {
