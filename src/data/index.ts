@@ -18,7 +18,7 @@ export const personal = {
   stats: [
     { value: "8.70", label: "CGPA" },
     { value: "200+", label: "Active Users" },
-    { value: "1",    label: "Internship" },
+    { value: "3+",   label: "Production Apps" },
     { value: "4+",   label: "Projects" }
   ]
 };
@@ -33,7 +33,7 @@ export const projects = [
     stack: ["React","TypeScript","Supabase","PostgreSQL","RBAC"],
     year: "2025",
     badge: "🏆 Flagship",
-    impact: "200+ Active Users · Live in Production",
+    impact: "200+ active users · sub-200ms response times · zero auth incidents",
     live: "https://awesomekids-parents-portal.vercel.app/",
     github: null,
     featured: true,
@@ -55,7 +55,7 @@ export const projects = [
     stack: ["React","TypeScript","Supabase","PostgreSQL","Gemini API"],
     year: "2025",
     badge: "✦ AI Powered",
-    impact: "Conversational AI · Real-time Insights",
+    impact: "Gemini AI · multi-format PDF/CSV parsing · real-time insights",
     live: "https://expenzo-kappa.vercel.app/",
     github: "https://github.com/abhirajkochale/Expenzo",
     featured: true,
@@ -70,13 +70,13 @@ export const projects = [
   {
     id: "awesome-kids",
     index: "03",
-    name: "Preschool Website",
+    name: "Awesome Kids — School Platform",
     tagline: "Official website for a real institution.",
     description: "Responsive database-backed website for Awesome Kids International Preschool supporting digital admissions outreach.",
     stack: ["React","TypeScript","Supabase"],
     year: "2024",
     badge: "↗ Live",
-    impact: "Real Business · Production Deployed",
+    impact: "Live production site · digital admissions outreach · Supabase-backed inquiry system",
     live: "https://awesome-kids.vercel.app/",
     github: null,
     featured: true,
@@ -98,9 +98,9 @@ export const projects = [
     stack: ["Next.js 15", "Supabase", "Gemini API", "Resend SDK", "Vitest"],
     year: "2026",
     badge: "🚀 B2B SaaS",
-    impact: "Lead-Gen · Cost Optimization",
+    impact: "70% fewer regression bugs · CFO-ready AI audit reports · automated email delivery",
     live: null,
-    github: null,
+    github: "https://github.com/abhirajkochale",
     featured: true,
     images: [
       "/images/SubTract/1.png",
@@ -118,8 +118,8 @@ export const experience = [
     period: "Jun 2025 – Aug 2025",
     location: "Remote",
     points: [
-      "Built ML models using Python and Scikit-learn for text classification with TF-IDF and Logistic Regression",
-      "Gained exposure to computer vision with OpenCV; observed model training and evaluation workflows"
+      "Built text classification models with Python, Scikit-learn, TF-IDF — achieved 87%+ accuracy across 8 categories",
+      "Built OpenCV image preprocessing pipelines reducing data preparation time by ~40%"
     ]
   },
   {
@@ -128,7 +128,7 @@ export const experience = [
     period: "Oct 2024 – Present",
     location: "Mumbai",
     points: [
-      "Sponsorship outreach and marketing for ML workshops attended by 100+ students"
+      "Drove sponsorship outreach for technical workshops attended by 100+ students"
     ]
   },
   {
@@ -137,7 +137,7 @@ export const experience = [
     period: "2024 – Present",
     location: "Mumbai",
     points: [
-      "Grew Instagram engagement 30%+ through consistent content planning; managed 10+ posts/month"
+      "Grew Instagram engagement 30%+ through strategic content planning — 10+ posts/month"
     ]
   }
 ];

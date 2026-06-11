@@ -1,16 +1,39 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent } from 'framer-motion';
 import { personal } from '../data';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollY } = useScroll();
+  const [isScrolledPast, setIsScrolledPast] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolledPast(latest > 80);
+  });
 
   const portraitY = useTransform(scrollY, [0, 400], [0, -20]);
   const nameY = useTransform(scrollY, [0, 400], [0, -40]);
   const nameOpacity = useTransform(scrollY, [0, 400], [1, 0]);
 
   const easeReveal: [number, number, number, number] = [0.76, 0, 0.24, 1];
+
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+  const rotateX = useTransform(mouseY, [0, 1], [6, -6]);
+  const rotateY = useTransform(mouseX, [0, 1], [-6, 6]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0.5);
+    mouseY.set(0.5);
+  };
 
   const maskReveal = {
     hidden: { clipPath: "inset(-20% -20% 100% -20%)" },
@@ -36,12 +59,12 @@ export default function Hero() {
         style={{ background: 'radial-gradient(circle, var(--color-pastel-blue) 0%, transparent 70%)' }} />
 
       <div className="absolute bottom-[24px] left-[32px] font-mono text-[0.65rem] text-muted z-10 hidden md:block">
-        {personal.location} ↗
+        {personal.location}
       </div>
       <motion.div
         animate={{ y: [0, -4, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-[24px] right-[32px] font-mono text-[0.65rem] text-muted z-10 hidden md:block"
+        className={`absolute bottom-[24px] right-[32px] font-mono text-[0.65rem] text-muted z-10 hidden md:block transition-all duration-400 ease-in-out ${isScrolledPast ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}
       >
         Scroll to explore ↓
       </motion.div>
@@ -51,11 +74,19 @@ export default function Hero() {
 
         {/* RIGHT SIDE: Profile Photo (Desktop Only) */}
         <motion.div
-          style={{ y: portraitY }}
-          className="hidden lg:block absolute right-[clamp(1.5rem,5vw,3.5rem)] top-0 w-[300px] z-10 group"
+          style={{ y: portraitY, rotateX, rotateY, zIndex: 10 }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="hidden lg:block absolute right-[clamp(1.5rem,5vw,3.5rem)] top-0 w-[300px] perspective-[1000px]"
         >
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.6, delay: 0.3, ease: [0.19, 1, 0.22, 1] as [number, number, number, number] }} className="relative transition-transform duration-400 ease-out group-hover:rotate-0 -rotate-2">
-            <img src="/abhiraj.jpeg" alt="Abhiraj Kochale" className="w-full aspect-[3/4] object-cover object-[center_top] rounded-[4px]" style={{ boxShadow: '0 0 0 1px var(--color-border), 16px 16px 0 0 var(--color-pastel-purple)' }} />
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            transition={{ duration: 1.6, delay: 0.3, ease: [0.19, 1, 0.22, 1] as [number, number, number, number] }} 
+            className="relative bg-white rounded-[12px] p-2 transition-transform duration-150 ease-out"
+            style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.12)' }}
+          >
+            <img src="/abhiraj.jpeg" alt="Abhiraj Kochale" className="w-full aspect-[3/4] object-cover object-[center_top] rounded-[8px]" />
           </motion.div>
         </motion.div>
 
@@ -72,10 +103,10 @@ export default function Hero() {
             </motion.div>
 
             <div className="flex flex-col">
-              <motion.h1 custom={0} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(2.8rem,9vw,10rem)] md:text-[clamp(4rem,10vw,10rem)] lg:text-[clamp(5rem,12vw,10rem)] leading-[0.9] text-text tracking-tight uppercase">
+              <motion.h1 custom={0} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(2.8rem,9vw,10rem)] md:text-[clamp(4rem,10vw,10rem)] lg:text-[clamp(4.5rem,8.5vw,8rem)] leading-[0.9] text-text tracking-tight uppercase">
                 {personal.name.first}
               </motion.h1>
-              <motion.h1 custom={1} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(2.8rem,9vw,10rem)] md:text-[clamp(4rem,10vw,10rem)] lg:text-[clamp(5rem,12vw,10rem)] leading-[0.9] tracking-tight uppercase"
+              <motion.h1 custom={1} variants={maskReveal} initial="hidden" animate="visible" className="font-body font-black text-[clamp(2.8rem,9vw,10rem)] md:text-[clamp(4rem,10vw,10rem)] lg:text-[clamp(4.5rem,8.5vw,8rem)] leading-[0.9] tracking-tight uppercase"
                 style={{
                   color: 'transparent',
                   WebkitTextStroke: '1.5px var(--text)'

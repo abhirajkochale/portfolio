@@ -1,8 +1,9 @@
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Hero from './sections/Hero';
+import About from './sections/About';
 import Projects from './sections/Projects';
-import Marquee from './components/Marquee';
+
 import Experience from './sections/Experience';
 import Skills from './sections/Skills';
 import Certifications from './sections/Certifications';
@@ -27,8 +28,9 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <About />
         <Projects />
-        <Marquee />
+
         <Experience />
         <Skills />
         <Certifications />

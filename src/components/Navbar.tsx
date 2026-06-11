@@ -81,7 +81,7 @@ export default function Navbar() {
                     ease: "easeOut",
                     delay: 0.3 + (index * 0.06)
                   }}
-                  className={`relative font-mono text-[0.72rem] tracking-[0.18em] uppercase py-1 transition-colors duration-200 ${isActive ? 'text-text font-bold' : 'text-muted hover:text-text'
+                  className={`relative font-mono text-[0.72rem] tracking-[0.18em] uppercase py-1 transition-all duration-200 ${isActive ? 'text-text font-[600]' : 'text-text/50 hover:text-text/100'
                     }`}
                 >
                   {link.name}
@@ -134,19 +134,22 @@ export default function Navbar() {
 
             {/* Links Stack */}
             <nav className="flex flex-col gap-8 flex-grow justify-center">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="font-body font-bold text-[clamp(2rem,8vw,3.5rem)] text-muted hover:text-text uppercase transition-colors"
-                >
-                  {link.name}
-                </motion.a>
-              ))}
+              {navLinks.map((link, i) => {
+                const isActive = activeSection === link.href;
+                return (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: i * 0.08 }}
+                    className={`font-body text-[clamp(2rem,8vw,3.5rem)] uppercase transition-all duration-200 ${isActive ? 'text-text font-[600]' : 'text-text/50 font-medium hover:text-text/100'}`}
+                  >
+                    {link.name}
+                  </motion.a>
+                );
+              })}
             </nav>
 
             {/* Bottom Contact */}

@@ -175,9 +175,6 @@ function FeaturedProjectCard({ project, colors }: { project: any, colors: any })
             <span className="font-mono text-[0.65rem] rounded-full px-3 py-1" style={{ backgroundColor: colors.badgeBg, color: colors.badgeText }}>
               {project.badge}
             </span>
-            <span className="font-mono text-[0.65rem] text-muted ml-auto">
-              {project.year}
-            </span>
           </div>
 
           <h3 className="font-body font-extrabold text-[clamp(2rem,3.5vw,2.8rem)] text-text mt-3 leading-tight">
@@ -192,9 +189,15 @@ function FeaturedProjectCard({ project, colors }: { project: any, colors: any })
           </p>
 
           <div className="mt-4 pt-4 border-t border-border">
-            <p className="font-mono text-[0.85rem] text-muted flex items-center gap-2">
-              <span className="text-[#22c55e]">●</span> {project.impact}
-            </p>
+            <div className="font-mono text-[0.85rem] text-muted flex flex-wrap items-center gap-x-2 gap-y-1.5 leading-[1.6]">
+              <span className="text-[#22c55e] mr-1">●</span>
+              {project.impact.split(' · ').map((item: string, i: number, arr: string[]) => (
+                <span key={i} className="inline-flex items-center">
+                  <span>{item}</span>
+                  {i < arr.length - 1 && <span className="mx-2 text-muted/50">·</span>}
+                </span>
+              ))}
+            </div>
           </div>
 
           <div className="flex flex-wrap gap-2 mt-3">
@@ -228,7 +231,7 @@ function FeaturedProjectCard({ project, colors }: { project: any, colors: any })
               href={project.live || project.github || "#"}
               target="_blank"
               rel="noreferrer"
-              className="block w-full cursor-pointer relative overflow-hidden bg-bg min-h-[250px] sm:min-h-[300px] md:min-h-[400px]"
+              className="block w-full cursor-pointer relative overflow-hidden bg-bg"
             >
               {/* Invisible image to dictate the natural height of the container */}
               <img src={images[currentImage]} alt="" className="w-full h-auto invisible pointer-events-none" aria-hidden="true" draggable="false" />
@@ -262,7 +265,7 @@ function FeaturedProjectCard({ project, colors }: { project: any, colors: any })
                   <img
                     src={images[currentImage]}
                     alt={project.name}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-contain"
                     draggable="false"
                   />
                 </motion.div>
