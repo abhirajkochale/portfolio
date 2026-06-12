@@ -15,14 +15,18 @@ export default function Contact() {
     setIsSubmitting(true);
     const form = e.currentTarget;
     const data = new FormData(form);
+    const formDataObj = Object.fromEntries(data.entries());
+    // Disable reCAPTCHA since we're using seamless AJAX
+    formDataObj['_captcha'] = 'false';
     
     try {
-      await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+      await fetch("https://formsubmit.co/ajax/kochaleabhiraj@gmail.com", {
         method: "POST",
-        body: data,
         headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json'
-        }
+        },
+        body: JSON.stringify(formDataObj)
       });
       setIsSubmitted(true);
       form.reset();
