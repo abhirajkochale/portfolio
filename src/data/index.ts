@@ -13,13 +13,13 @@ export const personal = {
     school: "KJ Somaiya School of Engineering",
     degree: "B.Tech Computer Engineering",
     period: "2024 – 2028",
-    cgpa: "8.70"
+    cgpa: "8.82"
   },
   stats: [
-    { value: "8.70", label: "CGPA" },
+    { value: "8.82", label: "CGPA" },
     { value: "200+", label: "Active Users" },
-    { value: "3+",   label: "Production Apps" },
-    { value: "4+",   label: "Projects" }
+    { value: "3+", label: "Production Apps" },
+    { value: "4+", label: "Projects" }
   ]
 };
 
@@ -30,7 +30,7 @@ export const projects = [
     name: "Parent Portal",
     tagline: "Production software. 200+ real users.",
     description: "Preschool management portal with JWT auth and role-based access control for parents and admins. Live in production with 200+ active users and real-time student updates via Supabase.",
-    stack: ["React","TypeScript","Supabase","PostgreSQL","RBAC"],
+    stack: ["React", "TypeScript", "Supabase", "PostgreSQL", "RBAC"],
     year: "2025",
     badge: "🏆 Flagship",
     impact: "200+ active users · sub-200ms response times · zero auth incidents",
@@ -52,7 +52,7 @@ export const projects = [
     name: "Expenzo",
     tagline: "AI financial assistant powered by Gemini.",
     description: "Natural language financial insights from bank statements via Gemini API. React/TypeScript frontend with Supabase/PostgreSQL backend.",
-    stack: ["React","TypeScript","Supabase","PostgreSQL","Gemini API"],
+    stack: ["React", "TypeScript", "Supabase", "PostgreSQL", "Gemini API"],
     year: "2025",
     badge: "✦ AI Powered",
     impact: "Gemini AI · multi-format PDF/CSV parsing · real-time insights",
@@ -73,7 +73,7 @@ export const projects = [
     name: "Awesome Kids — School Platform",
     tagline: "Official website for a real institution.",
     description: "Responsive database-backed website for Awesome Kids International Preschool supporting digital admissions outreach.",
-    stack: ["React","TypeScript","Supabase"],
+    stack: ["React", "TypeScript", "Supabase"],
     year: "2024",
     badge: "↗ Live",
     impact: "Live production site · digital admissions outreach · Supabase-backed inquiry system",
@@ -143,11 +143,11 @@ export const experience = [
 ];
 
 export const skills = {
-  "Languages":   ["Python", "Java", "JavaScript", "TypeScript"],
-  "Frontend":    ["React", "Next.js", "HTML5", "CSS3", "Tailwind CSS"],
-  "Backend":     ["Supabase", "PostgreSQL", "SQL", "REST APIs"],
-  "AI / ML":     ["Gemini API", "OpenAI API", "Scikit-learn", "TensorFlow", "OpenCV", "NLP"],
-  "Tools":       ["Git", "GitHub", "VS Code", "Vercel"]
+  "Languages": ["Python", "Java", "JavaScript", "TypeScript"],
+  "Frontend": ["React", "Next.js", "HTML5", "CSS3", "Tailwind CSS"],
+  "Backend": ["Supabase", "PostgreSQL", "SQL", "REST APIs"],
+  "AI / ML": ["Gemini API", "OpenAI API", "Scikit-learn", "TensorFlow", "OpenCV", "NLP"],
+  "Tools": ["Git", "GitHub", "VS Code", "Vercel"]
 };
 
 export const certifications = [
