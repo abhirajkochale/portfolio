@@ -15,7 +15,7 @@ export default function Contact() {
     setIsSubmitting(true);
     const form = e.currentTarget;
     const data = new FormData(form);
-    const formDataObj = Object.fromEntries(data.entries()) as Record<string, string>;
+    const formDataObj = Object.fromEntries((data as any).entries()) as Record<string, string>;
     // Disable reCAPTCHA since we're using seamless AJAX
     formDataObj['_captcha'] = 'false';
     
