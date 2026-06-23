@@ -1,5 +1,6 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { projects } from '../data';
+import { GitHubCalendar } from 'react-github-calendar';
 import { useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -103,6 +104,31 @@ export default function Projects() {
             ))}
           </div>
         </div>
+
+        {/* GitHub Contributions */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-10%" }}
+          className="mt-20 pt-16 border-t border-border"
+        >
+          <div className="flex items-center gap-2 mb-8">
+             <div className="h-[1px] bg-muted w-4" />
+            <h3 className="font-mono text-[0.7rem] text-muted tracking-[0.2em] uppercase">
+              // OPEN SOURCE ACTIVITY
+            </h3>
+          </div>
+          <div className="flex justify-center w-full bg-bg border border-border rounded-[12px] p-6 shadow-sm overflow-x-auto">
+            <GitHubCalendar 
+              username="abhirajkochale" 
+              colorScheme="light"
+              blockSize={12}
+              blockMargin={4}
+              fontSize={12}
+            />
+          </div>
+        </motion.div>
 
       </motion.div>
     </section>
