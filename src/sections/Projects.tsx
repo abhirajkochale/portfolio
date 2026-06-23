@@ -1,6 +1,6 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { projects } from '../data';
-import { GitHubCalendar } from 'react-github-calendar';
+import GitHubGraph from '../components/GitHubGraph';
 import { useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -119,14 +119,8 @@ export default function Projects() {
               // OPEN SOURCE ACTIVITY
             </h3>
           </div>
-          <div className="flex justify-center w-full bg-bg border border-border rounded-[12px] p-6 shadow-sm overflow-x-auto">
-            <GitHubCalendar 
-              username="abhirajkochale" 
-              colorScheme="light"
-              blockSize={12}
-              blockMargin={4}
-              fontSize={12}
-            />
+          <div className="flex justify-center w-full mt-4">
+            <GitHubGraph username="abhirajkochale" />
           </div>
         </motion.div>
 
