@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { certifications } from '../data';
+import { GraduationCap, Award } from 'lucide-react';
 import { useRef } from 'react';
 
 const certColors = [
@@ -51,7 +52,9 @@ export default function Certifications() {
                 <div className="absolute inset-0 opacity-[0.3]" style={{ backgroundColor: colors.bg }} />
 
                 <div className="relative z-10">
-                  <div className="text-[2rem] mb-4">{cert.icon}</div>
+                  <div className="mb-4 text-text">
+                    {idx === 0 ? <GraduationCap size={36} strokeWidth={1.5} /> : <Award size={36} strokeWidth={1.5} />}
+                  </div>
                   <p className="font-mono text-[0.7rem] text-muted uppercase mt-4 tracking-wider">
                     {cert.issuer}
                   </p>
