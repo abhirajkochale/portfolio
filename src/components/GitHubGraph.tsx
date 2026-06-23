@@ -160,11 +160,11 @@ export default function GitHubGraph({ username }: { username: string }) {
   const mostActiveMonth = Object.entries(monthCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A';
 
   const getColor = (count: number) => {
-    if (count === 0) return 'bg-[#f4f4f5] border border-border/40';
-    if (count <= 3) return 'bg-[#e4e4e7]';
-    if (count <= 6) return 'bg-[#a1a1aa]';
-    if (count <= 9) return 'bg-[#52525b]';
-    return 'bg-[#18181b]';
+    if (count === 0) return 'bg-[#E5E0DB]'; 
+    if (count <= 3) return 'bg-[#C0BAB4]';
+    if (count <= 6) return 'bg-[#8A8580]';
+    if (count <= 9) return 'bg-[#4A4744]';
+    return 'bg-[#1C1917]';
   };
 
   const getMonthLabels = () => {
