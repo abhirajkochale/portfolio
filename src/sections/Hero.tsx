@@ -92,7 +92,7 @@ export default function Hero() {
 
         <div className="w-full flex flex-col relative z-20 pointer-events-none">
           {/* Re-enable pointer events for interactive children */}
-          <motion.div className="flex flex-row items-center gap-4 sm:gap-6 origin-left pointer-events-auto" style={{ y: nameY, opacity: nameOpacity }}>
+          <motion.div className="flex flex-row items-center gap-4 sm:gap-6 origin-left pointer-events-auto ml-3 sm:ml-0" style={{ y: nameY, opacity: nameOpacity }}>
             
             {/* Mobile Portrait Inline */}
             <motion.div 
