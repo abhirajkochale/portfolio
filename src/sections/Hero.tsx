@@ -70,7 +70,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Main Content */}
-      <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-[clamp(1.5rem,5vw,3.5rem)] relative z-10 flex flex-col flex-grow">
+      <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,3.5rem)] relative z-10 flex flex-col flex-grow">
 
         {/* RIGHT SIDE: Profile Photo (Desktop Only) */}
         <motion.div
@@ -92,12 +92,12 @@ export default function Hero() {
 
         <div className="w-full flex flex-col relative z-20 pointer-events-none">
           {/* Re-enable pointer events for interactive children */}
-          <motion.div className="flex flex-row items-center gap-3 sm:gap-6 origin-left pointer-events-auto -ml-2 sm:ml-0" style={{ y: nameY, opacity: nameOpacity }}>
+          <motion.div className="flex flex-row items-center gap-4 sm:gap-6 origin-left pointer-events-auto" style={{ y: nameY, opacity: nameOpacity }}>
             
             {/* Mobile Portrait Inline */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }}
-              className="lg:hidden w-[85px] h-[85px] sm:w-[130px] sm:h-[130px] rounded-full overflow-hidden border border-border/50 shadow-sm pointer-events-auto flex-shrink-0"
+              className="lg:hidden w-[90px] h-[90px] sm:w-[130px] sm:h-[130px] rounded-full overflow-hidden border border-border/50 shadow-sm pointer-events-auto flex-shrink-0"
             >
               <img src="/abhiraj.jpeg" alt="Abhiraj Kochale" className="w-full h-full object-cover object-[center_top] scale-[1.15]" />
             </motion.div>
