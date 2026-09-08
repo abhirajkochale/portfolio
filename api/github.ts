@@ -14,7 +14,7 @@ export default async function handler(req: Request) {
   }
 
   const token = process.env.GITHUB_TOKEN || process.env.VITE_GITHUB_TOKEN;
-  
+
   if (!token) {
     return new Response(JSON.stringify({ error: 'GitHub token is missing in server environment' }), {
       status: 500,
