@@ -79,10 +79,10 @@ export default function Hero() {
           onMouseLeave={handleMouseLeave}
           className="hidden lg:block absolute right-[clamp(1.5rem,5vw,3.5rem)] top-0 w-[300px] perspective-[1000px]"
         >
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ duration: 1.6, delay: 0.3, ease: [0.19, 1, 0.22, 1] as [number, number, number, number] }} 
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.6, delay: 0.3, ease: [0.19, 1, 0.22, 1] as [number, number, number, number] }}
             className="relative bg-white rounded-[12px] p-2 transition-transform duration-150 ease-out"
             style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.12)' }}
           >
@@ -93,9 +93,9 @@ export default function Hero() {
         <div className="w-full flex flex-col relative z-20 pointer-events-none">
           {/* Re-enable pointer events for interactive children */}
           <motion.div className="flex flex-row items-center gap-4 sm:gap-6 origin-left pointer-events-auto ml-3 sm:ml-0" style={{ y: nameY, opacity: nameOpacity }}>
-            
+
             {/* Mobile Portrait Inline */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }}
               className="lg:hidden w-[90px] h-[90px] sm:w-[130px] sm:h-[130px] rounded-full overflow-hidden border border-border/50 shadow-sm pointer-events-auto flex-shrink-0"
             >
@@ -115,7 +115,7 @@ export default function Hero() {
                 {personal.name.last}
               </motion.h1>
             </div>
-            
+
           </motion.div>
 
           <motion.p custom={0.6} variants={fadeUp} initial="hidden" animate="visible" className="font-body font-medium text-[1.1rem] text-muted mt-6 max-w-[500px] pointer-events-auto">
@@ -130,7 +130,7 @@ export default function Hero() {
             <a href="#work" className="text-text border-b-[1.5px] border-text pb-0.5 hover:text-muted transition-colors">
               View My Work →
             </a>
-            <a href="https://drive.google.com/file/d/17vhsogk_DDxe4Jx1uIzZX9m30BVMXis0/view" target="_blank" rel="noreferrer" className="text-muted border-b border-border pb-0.5 hover:text-text transition-colors">
+            <a href="https://drive.google.com/file/d/1kUcZJAG2pRXyKAz8lzwpg8UQTMhXNKMI/view" target="_blank" rel="noreferrer" className="text-muted border-b border-border pb-0.5 hover:text-text transition-colors">
               Resume ↗
             </a>
           </motion.div>

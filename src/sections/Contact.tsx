@@ -17,13 +17,13 @@ export default function Contact() {
     const data = new FormData(form);
     const formDataObj = Object.fromEntries((data as any).entries()) as Record<string, string>;    // Disable reCAPTCHA since we're using seamless AJAX
     formDataObj['_captcha'] = 'false';
-    
+
     try {
       await fetch("https://formsubmit.co/ajax/kochaleabhiraj@gmail.com", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify(formDataObj)
       });
@@ -44,7 +44,7 @@ export default function Contact() {
         style={{ background: 'radial-gradient(circle, var(--color-pastel-purple) 0%, transparent 70%)' }} />
 
       <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,3.5rem)] grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 relative z-10">
-        
+
         {/* LEFT COLUMN */}
         <div className="flex flex-col items-start text-left w-full h-full">
           <div className="flex flex-col items-start">
@@ -70,42 +70,42 @@ export default function Contact() {
             </motion.h2>
           </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-12 flex flex-col items-start gap-4 pt-12 border-t w-full"
-          style={{ borderColor: '#2C2825' }}
-        >
-          <a
-            href={`mailto:${personal.email}`}
-            className="font-mono text-[1.3rem] text-pastel-yellow border-b border-pastel-yellow/40 hover:border-pastel-yellow transition-colors pb-1"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mt-12 flex flex-col items-start gap-4 pt-12 border-t w-full"
+            style={{ borderColor: '#2C2825' }}
           >
-            {personal.email}
-          </a>
-          <p className="font-mono text-[0.8rem]" style={{ color: '#A8A29E' }}>
-            {personal.location}
-          </p>
-        </motion.div>
+            <a
+              href={`mailto:${personal.email}`}
+              className="font-mono text-[1.3rem] text-pastel-yellow border-b border-pastel-yellow/40 hover:border-pastel-yellow transition-colors pb-1"
+            >
+              {personal.email}
+            </a>
+            <p className="font-mono text-[0.8rem]" style={{ color: '#A8A29E' }}>
+              {personal.location}
+            </p>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex flex-wrap items-center gap-4 md:gap-6 mt-16"
-        >
-          <a href={personal.github} target="_blank" rel="noreferrer" className="font-mono text-[0.95rem] tracking-[0.1em] uppercase transition-colors" style={{ color: '#9CA3AF' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-inv)'} onMouseLeave={(e) => e.currentTarget.style.color = '#9CA3AF'}>
-            GitHub
-          </a>
-          <span style={{ color: '#9CA3AF' }}>·</span>
-          <a href={personal.linkedin} target="_blank" rel="noreferrer" className="font-mono text-[0.95rem] tracking-[0.1em] uppercase transition-colors" style={{ color: '#9CA3AF' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-inv)'} onMouseLeave={(e) => e.currentTarget.style.color = '#9CA3AF'}>
-            LinkedIn
-          </a>
-          <span style={{ color: '#9CA3AF' }}>·</span>
-          <a href="https://drive.google.com/file/d/17vhsogk_DDxe4Jx1uIzZX9m30BVMXis0/view" target="_blank" rel="noreferrer" className="font-mono text-[0.95rem] tracking-[0.1em] uppercase transition-colors" style={{ color: '#9CA3AF' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-inv)'} onMouseLeave={(e) => e.currentTarget.style.color = '#9CA3AF'}>
-            Resume
-          </a>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="flex flex-wrap items-center gap-4 md:gap-6 mt-16"
+          >
+            <a href={personal.github} target="_blank" rel="noreferrer" className="font-mono text-[0.95rem] tracking-[0.1em] uppercase transition-colors" style={{ color: '#9CA3AF' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-inv)'} onMouseLeave={(e) => e.currentTarget.style.color = '#9CA3AF'}>
+              GitHub
+            </a>
+            <span style={{ color: '#9CA3AF' }}>·</span>
+            <a href={personal.linkedin} target="_blank" rel="noreferrer" className="font-mono text-[0.95rem] tracking-[0.1em] uppercase transition-colors" style={{ color: '#9CA3AF' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-inv)'} onMouseLeave={(e) => e.currentTarget.style.color = '#9CA3AF'}>
+              LinkedIn
+            </a>
+            <span style={{ color: '#9CA3AF' }}>·</span>
+            <a href="https://drive.google.com/file/d/1kUcZJAG2pRXyKAz8lzwpg8UQTMhXNKMI/view" target="_blank" rel="noreferrer" className="font-mono text-[0.95rem] tracking-[0.1em] uppercase transition-colors" style={{ color: '#9CA3AF' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-inv)'} onMouseLeave={(e) => e.currentTarget.style.color = '#9CA3AF'}>
+              Resume
+            </a>
+          </motion.div>
         </div>
 
         {/* RIGHT COLUMN: Contact Form */}
@@ -122,28 +122,28 @@ export default function Contact() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="name"
-                required 
-                placeholder="Your name" 
+                required
+                placeholder="Your name"
                 className="w-full bg-[rgba(255,255,255,0.07)] border border-white/50 rounded-[8px] px-4 py-3 font-mono text-[0.9rem] text-white placeholder:text-white/40 focus:outline-none focus:border-white transition-colors"
               />
-              <input 
-                type="email" 
+              <input
+                type="email"
                 name="email"
-                required 
-                placeholder="your@email.com" 
+                required
+                placeholder="your@email.com"
                 className="w-full bg-[rgba(255,255,255,0.07)] border border-white/50 rounded-[8px] px-4 py-3 font-mono text-[0.9rem] text-white placeholder:text-white/40 focus:outline-none focus:border-white transition-colors"
               />
-              <textarea 
+              <textarea
                 name="message"
-                required 
+                required
                 rows={4}
-                placeholder="What are you building?" 
+                placeholder="What are you building?"
                 className="w-full bg-[rgba(255,255,255,0.07)] border border-white/50 rounded-[8px] px-4 py-3 font-mono text-[0.9rem] text-white placeholder:text-white/40 focus:outline-none focus:border-white transition-colors resize-none"
               ></textarea>
-              <button 
+              <button
                 type="submit"
                 disabled={isSubmitting}
                 className="mt-2 w-full sm:w-auto self-start px-6 py-3 font-mono text-[0.9rem] uppercase tracking-wider text-white border border-white rounded-[8px] hover:bg-white hover:text-black transition-colors disabled:opacity-50"

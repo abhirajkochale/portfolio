@@ -28,7 +28,7 @@ export default function About() {
               // ABOUT
             </motion.p>
           </div>
-          
+
           <h2 className="font-body font-black text-[clamp(2.5rem,6vw,4rem)] leading-[1.1] text-text mb-2">
             I Build Things That Ship
           </h2>
@@ -46,7 +46,7 @@ export default function About() {
 
         {/* Links */}
         <div className="flex flex-wrap items-center gap-8 mt-10 font-body text-[0.95rem]">
-          <a href="https://drive.google.com/file/d/17vhsogk_DDxe4Jx1uIzZX9m30BVMXis0/view" target="_blank" rel="noreferrer" className="text-text border-b-[1.5px] border-text pb-0.5 hover:text-muted transition-colors">
+          <a href="https://drive.google.com/file/d/1kUcZJAG2pRXyKAz8lzwpg8UQTMhXNKMI/view" target="_blank" rel="noreferrer" className="text-text border-b-[1.5px] border-text pb-0.5 hover:text-muted transition-colors">
             View my resume →
           </a>
           <a href="https://github.com/abhirajkochale" target="_blank" rel="noreferrer" className="text-text border-b-[1.5px] border-text pb-0.5 hover:text-muted transition-colors">
