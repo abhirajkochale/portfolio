@@ -61,7 +61,7 @@ export default function Skills() {
           
           {/* Left Column */}
           <div className="flex flex-col gap-6 md:gap-8">
-            {['Languages', 'Frontend', 'Tools'].map((category) => (
+            {['Languages', 'Frontend', 'AI Development'].map((category) => (
               <div 
                 key={category}
                 className="flex flex-col bg-bg border border-border rounded-[12px] p-6 shadow-sm"
@@ -98,7 +98,7 @@ export default function Skills() {
 
           {/* Right Column */}
           <div className="flex flex-col gap-6 md:gap-8">
-            {['Backend', 'AI / ML'].map((category) => (
+            {['Backend & DB', 'AI / ML'].map((category) => (
               <div 
                 key={category}
                 className="flex flex-col bg-bg border border-border rounded-[12px] p-6 shadow-sm"

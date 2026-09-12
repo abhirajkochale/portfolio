@@ -37,10 +37,10 @@ export default function About() {
         {/* Content */}
         <div className="flex flex-col gap-6 max-w-[800px] font-body text-[1.1rem] md:text-[1.2rem] text-text leading-relaxed">
           <p>
-            I'm a Computer Engineering student at KJ Somaiya (2024–2028) with a thing for building software people actually use — not just toy projects. From a preschool management portal serving 200+ real parents to a B2B AI audit tool for startup founders, I care about code that solves real problems.
+            I am a Computer Engineering student at KJ Somaiya focused on building and deploying full-stack web and mobile applications. From a production-ready parent portal serving 300+ users to AI-powered journey safety platforms like SAKHI, I care about practical product development that solves real problems.
           </p>
           <p>
-            I work across the full stack — React, Next.js, TypeScript, Supabase, PostgreSQL — and I've integrated AI APIs (Gemini, OpenAI) into production apps. Currently exploring ML seriously after a machine learning internship at Wayspire Ed-Tech.
+            I work across full-stack web development, mobile development, AI/ML, backend APIs, and databases. My technical stack includes React, React Native, Python, FastAPI, Supabase, PostgreSQL, and integrating machine learning workflows with tools like XGBoost and the Gemini API.
           </p>
         </div>
 

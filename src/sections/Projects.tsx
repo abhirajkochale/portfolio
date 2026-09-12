@@ -133,6 +133,8 @@ function FeaturedProjectCard({ project, colors }: { project: any, colors: any })
   const images = project.images || [`/images/${project.id}.png`];
   const [currentImage, setCurrentImage] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isSakhi = project.id === 'sakhi';
 
   const slideVariants = {
     enter: (direction: number) => ({
@@ -176,7 +178,7 @@ function FeaturedProjectCard({ project, colors }: { project: any, colors: any })
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-5%" }}
       transition={{ duration: 0.8 }}
-      className="group relative bg-bg-card border border-border rounded-[16px] p-6 lg:p-[32px] mb-6 transition-all duration-300 ease-out hover:-translate-y-1 overflow-hidden lg:overflow-visible"
+      className="group relative bg-bg-card border border-border rounded-[16px] p-5 md:p-6 lg:p-[24px] mb-6 transition-all duration-300 ease-out hover:-translate-y-1 overflow-hidden lg:overflow-visible"
       style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
       onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.10)'}
       onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'}
@@ -184,40 +186,65 @@ function FeaturedProjectCard({ project, colors }: { project: any, colors: any })
       {/* Left Border Hover Flash */}
       <div className="absolute inset-y-0 left-0 w-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-l-[16px] hidden lg:block" style={{ backgroundColor: colors.border }} />
 
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 relative z-10">
+      <div className="flex flex-col lg:flex-row gap-5 lg:gap-10 relative z-10">
 
-        {/* Left Column (40%) */}
-        <div className="w-full lg:w-[40%] flex flex-col order-2 lg:order-1">
+        {/* Left Column */}
+        <div className="w-full lg:w-[55%] flex flex-col order-2 lg:order-1">
           <div className="flex items-center w-full">
             <span className="font-mono text-[0.65rem] rounded-full px-3 py-1" style={{ backgroundColor: colors.badgeBg, color: colors.badgeText }}>
               {project.badge}
             </span>
           </div>
 
-          <h3 className="font-body font-extrabold text-[clamp(2rem,3.5vw,2.8rem)] text-text mt-3 leading-tight">
+          <h3 className="font-body font-extrabold text-[clamp(1.6rem,3.5vw,2.8rem)] text-text mt-3 leading-tight">
             {project.name}
           </h3>
           <p className="font-body font-medium text-[1.05rem] text-muted mt-1.5">
             {project.tagline}
           </p>
 
-          <p className="font-body font-normal text-[0.9rem] text-light mt-3 max-w-[420px]">
+          <p className={`font-body font-normal text-[0.9rem] text-light mt-3 ${isExpanded ? '' : 'line-clamp-2 md:line-clamp-none'}`}>
             {project.description}
           </p>
 
-          <div className="mt-4 pt-4 border-t border-border">
-            <div className="font-mono text-[0.85rem] text-muted flex flex-wrap items-center gap-x-2 gap-y-1.5 leading-[1.6]">
-              <span className="text-[#22c55e] mr-1">●</span>
-              {project.impact.split(' · ').map((item: string, i: number, arr: string[]) => (
-                <span key={i} className="inline-flex items-center">
-                  <span>{item}</span>
-                  {i < arr.length - 1 && <span className="mx-2 text-muted/50">·</span>}
-                </span>
-              ))}
-            </div>
-          </div>
+          <AnimatePresence initial={false}>
+            {isExpanded && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                {project.secondDescription && (
+                  <p className="font-body font-normal text-[0.9rem] text-light mt-2">
+                    {project.secondDescription}
+                  </p>
+                )}
 
-          <div className="flex flex-wrap gap-2 mt-3">
+                <div className="mt-4 pt-4 border-t border-border">
+                  <div className="font-mono text-[0.85rem] text-muted flex flex-wrap items-center gap-x-2 gap-y-1.5 leading-[1.6]">
+                    <span className="text-[#22c55e] mr-1">●</span>
+                    {project.impact.split(' · ').map((item: string, i: number, arr: string[]) => (
+                      <span key={i} className="inline-flex items-center">
+                        <span>{item}</span>
+                        {i < arr.length - 1 && <span className="mx-2 text-muted/50">·</span>}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <button 
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-left font-body font-medium text-[0.95rem] text-[#22c55e] mt-1 transition-opacity duration-200 inline-block w-max hover:opacity-80"
+          >
+            {isExpanded ? 'Read less' : 'Read more'}
+          </button>
+
+          <div className={`flex-wrap gap-2 mt-3 ${isExpanded ? 'flex' : 'hidden md:flex'}`}>
             {project.stack.map((tech: string) => (
               <span key={tech} className="bg-bg-alt border border-border text-muted font-mono text-[0.72rem] rounded-[4px] px-2.5 py-1">
                 {tech}
@@ -239,8 +266,8 @@ function FeaturedProjectCard({ project, colors }: { project: any, colors: any })
           </div>
         </div>
 
-        {/* Right Column (60%) - Carousel */}
-        <div className="w-full lg:w-[60%] flex flex-col justify-center self-center order-1 lg:order-2 mb-2 lg:mb-0">
+        {/* Right Column - Carousel */}
+        <div className="w-full lg:w-[45%] flex flex-col justify-center self-center order-1 lg:order-2 mb-2 lg:mb-0">
           <div
             className="w-[calc(100%+48px)] lg:w-full -mx-6 lg:mx-0 rounded-none lg:rounded-[8px] flex flex-col items-center justify-center overflow-hidden relative shadow-sm border-y lg:border border-border/50 block group/carousel bg-bg-alt"
           >
@@ -248,11 +275,11 @@ function FeaturedProjectCard({ project, colors }: { project: any, colors: any })
               href={project.live || project.github || "#"}
               target="_blank"
               rel="noreferrer"
-              className="block w-full cursor-pointer relative overflow-hidden bg-bg"
+              className={`block w-full cursor-pointer relative overflow-hidden bg-bg ${isSakhi ? 'aspect-[4/3] md:aspect-[16/9]' : ''}`}
             >
-              {/* Invisible image to dictate the natural height of the container */}
-              <img src={images[currentImage]} alt="" className="w-full h-auto invisible pointer-events-none" aria-hidden="true" draggable="false" />
-
+              {!isSakhi && (
+                <img src={images[currentImage]} alt="" className="w-full object-contain invisible pointer-events-none" aria-hidden="true" draggable="false" />
+              )}
               <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                   key={currentImage}
