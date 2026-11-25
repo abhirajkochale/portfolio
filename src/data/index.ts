@@ -7,7 +7,7 @@ export const personal = {
   phone: "+91-9324267002",
   github: "https://github.com/abhirajkochale",
   linkedin: "https://linkedin.com/in/abhirajkochale-543284309",
-  resume: "//https://drive.google.com/file/d/1r-c2SNDlFJcY2yqD3Zqftypjx4BFhPIi/view?usp=drivesdk",
+  resume: "https://drive.google.com/file/d/1r-c2SNDlFJcY2yqD3Zqftypjx4BFhPIi/view?usp=drivesdk",
   available: true,
   education: {
     school: "KJ Somaiya School of Engineering",
