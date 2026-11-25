@@ -102,7 +102,7 @@ export default function Contact() {
               LinkedIn
             </a>
             <span style={{ color: '#9CA3AF' }}>·</span>
-            <a href="https://drive.google.com/file/d/1kUcZJAG2pRXyKAz8lzwpg8UQTMhXNKMI/view" target="_blank" rel="noreferrer" className="font-mono text-[0.95rem] tracking-[0.1em] uppercase transition-colors" style={{ color: '#9CA3AF' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-inv)'} onMouseLeave={(e) => e.currentTarget.style.color = '#9CA3AF'}>
+            <a href="https://drive.google.com/file/d/1r-c2SNDlFJcY2yqD3Zqftypjx4BFhPIi/view?usp=drivesdk" target="_blank" rel="noreferrer" className="font-mono text-[0.95rem] tracking-[0.1em] uppercase transition-colors" style={{ color: '#9CA3AF' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-inv)'} onMouseLeave={(e) => e.currentTarget.style.color = '#9CA3AF'}>
               Resume
             </a>
           </motion.div>
